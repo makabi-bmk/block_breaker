@@ -1,11 +1,17 @@
 /* STATIC AREA START */
-// arrangement setting
 
+// arrangement setting
 final int BLOCK_AREA_DIVISION_NUM = 20;
+final float BLOCK_AREA_START  = 100;
+final float BLOCK_AREA_END    = 500;
+final float BLOCK_SIZE = (BLOCK_AREA_END - BLOCK_AREA_START) / BLOCK_AREA_DIVISION_NUM;
 final int BLOCK_AREA_NUM = BLOCK_AREA_DIVISION_NUM * BLOCK_AREA_DIVISION_NUM;
-final int BLOCK_MAX_NUM = BLOCK_AREA_NUM / 4;
-final float[] blockAreaStart  = {100, 100};
-final float[] blockAreaEnd    = {500, 500};
+final int BLOCK_MAX_NUM = BLOCK_AREA_NUM / 2;
+
+final int TOP_LEFT     = 0;
+final int TOP_RIGHT    = 1;
+final int BUTTOM_LEFT  = 2;
+final int BUTTOM_RIGHT = 3;
 
 // status setting
 final int STATUS_B = 0;
@@ -15,7 +21,7 @@ final int STATUS_SR = 3;
 final int[][] BLOCK_COLORS = {{180, 207, 143}, {125, 125, 125}, {255, 165, 0}, {139, 0, 0}};
 
 // manage arrangement
-boolean[] blockExists = new boolean[BLOCK_AREA_NUM];
+boolean[][] blockExists = new boolean[BLOCK_AREA_DIVISION_NUM][BLOCK_AREA_DIVISION_NUM];
 Block[] blocks = new Block[BLOCK_MAX_NUM];
 
 void initBlockCoordinate() {
@@ -26,9 +32,21 @@ void initBlockCoordinate() {
   for(int i = 0; i < BLOCK_MAX_NUM; i++) {
     int x = getBlockCoordinateX(b.get(i));
     int y = getBlockCoordinateY(b.get(i));
-    blockExists[i] = true;
+    blockExists[x][y] = true;
     blocks[i] = new Block(i, x, y);
     println(blocks[i]);
+  }
+}
+
+void drawBlocks() {
+  noStroke();
+  for (Block block : blocks) {
+    if (block.getIsVisiable()) {
+      int[] mColor = block.getColor();
+      float[] topLeftCorner = block.getTopLeftCorner();
+      fill(mColor[R], mColor[G], mColor[B]);
+      rect(topLeftCorner[X], topLeftCorner[Y], BLOCK_SIZE, BLOCK_SIZE);
+    }
   }
 }
 
@@ -55,16 +73,36 @@ public class Block {
   
   private int ID;
   private int status;
-  private int[] myColor = new int[3];
-  private int x;
-  private int y;
+  private int[] mColor = new int[3];
+  private float[][] corners = new float[4][2];
+  private boolean isVisiable;
   
   public Block(int ID, int x, int y) {
     this.ID = ID;
-    this.x = x;
-    this.y = y;
+    this.isVisiable = true;
+    initCoordinate(x, y);
     initStatus();
     initColor();
+  }
+  
+  public boolean getIsVisiable() {
+    return this.isVisiable;
+  }
+  
+  public int[] getColor() {
+    return this.mColor;
+  }
+  
+  public float[] getTopLeftCorner() {
+    float[] topLeftCorner = {this.corners[TOP_LEFT][X], this.corners[TOP_RIGHT][Y]};
+    return topLeftCorner;
+  }
+  
+  private void initCoordinate(int x, int y) {
+    this.corners[TOP_LEFT][X]    = this.corners[BUTTOM_LEFT][X]  = BLOCK_AREA_START + x * BLOCK_SIZE;
+    this.corners[TOP_LEFT][Y]    = this.corners[TOP_RIGHT][Y]    = BLOCK_AREA_START + y * BLOCK_SIZE;
+    this.corners[TOP_RIGHT][X]   = this.corners[BUTTOM_RIGHT][X] = BLOCK_AREA_START + x + BLOCK_SIZE + BLOCK_SIZE;
+    this.corners[BUTTOM_LEFT][Y] = this.corners[BUTTOM_RIGHT][Y] = BLOCK_AREA_START + y * BLOCK_SIZE + BLOCK_SIZE;
   }
   
   private void initStatus() {
@@ -77,13 +115,13 @@ public class Block {
   }
   
   private void initColor() {
-    this.myColor[R] = BLOCK_COLORS[this.status][R];
-    this.myColor[G] = BLOCK_COLORS[this.status][G];
-    this.myColor[B] = BLOCK_COLORS[this.status][B];
+    this.mColor[R] = BLOCK_COLORS[this.status][R];
+    this.mColor[G] = BLOCK_COLORS[this.status][G];
+    this.mColor[B] = BLOCK_COLORS[this.status][B];
   }
   
   public String toString() {
-    return "ID = " + this.ID + ", x = " + this.x + ", y = " + this.y + ", status = " + this.status + ", color = {" + this.myColor[R] + "," + this.myColor[G] + "," + this.myColor[B] + "}";
+    return "ID = " + this.ID + ", x = " + this.corners[TOP_LEFT][X] + ", y = " + this.corners[TOP_LEFT][Y] + ", status = " + this.status + ", color = {" + this.mColor[R] + "," + this.mColor[G] + "," + this.mColor[B] + "}";
   }
 }
 /* CLASS AREA END */
