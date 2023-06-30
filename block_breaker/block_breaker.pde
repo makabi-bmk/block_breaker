@@ -1,11 +1,13 @@
+
+
 void setup() {
   //init settings
   surface.setSize(START_WIDTH, START_HEIGHT);
-  surface.setResizable(true);
+  surface.setResizable(false);
+  initBlockCoordinate();
 }
 
 void draw() {
-  if (height != nowHeight || width != nowWidth) {
-    SET_SCREEN_SIZE(width);
-  }
+  
+  
 }

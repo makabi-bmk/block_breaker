@@ -1,15 +1,9 @@
 final int START_HEIGHT = 800;
 final int START_WIDTH = 600;
-final int VERTICAL_RATIO = 4;
-final int HORIZONTAL_RATIO = 3;
 
-int nowHeight = START_HEIGHT;
-int nowWidth = START_WIDTH;
+final int X = 0;
+final int Y = 1;
 
-public void SET_SCREEN_SIZE(int newWidth) {
-  int newHeight = (int)((newWidth / HORIZONTAL_RATIO) * VERTICAL_RATIO);
-  println(newWidth);
-  nowHeight = newHeight;
-  nowWidth = newWidth;
-  surface.setSize(newWidth, newHeight);
-} 
+final int R = 0;
+final int G = 1;
+final int B = 2;
