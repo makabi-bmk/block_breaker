@@ -8,11 +8,6 @@ final float BLOCK_SIZE = (BLOCK_AREA_END - BLOCK_AREA_START) / BLOCK_AREA_DIVISI
 final int BLOCK_AREA_NUM = BLOCK_AREA_DIVISION_NUM * BLOCK_AREA_DIVISION_NUM;
 final int BLOCK_MAX_NUM = BLOCK_AREA_NUM / 2;
 
-final int TOP_LEFT     = 0;
-final int TOP_RIGHT    = 1;
-final int BUTTOM_LEFT  = 2;
-final int BUTTOM_RIGHT = 3;
-
 // status setting
 final int STATUS_B = 0;
 final int STATUS_N = 1;
@@ -34,7 +29,7 @@ void initBlockCoordinate() {
     int y = getBlockCoordinateY(b.get(i));
     blockExists[x][y] = true;
     blocks[i] = new Block(i, x, y);
-    println(blocks[i]);
+    //println(blocks[i]);
   }
 }
 
