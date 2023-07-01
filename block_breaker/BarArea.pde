@@ -1,18 +1,23 @@
 /* STATIC AREA START */
+//arrangement setting
 final float BAR_AREA_SIZE = 100;
 float BLOCK_AREA; // BLOCK_AREA_END - BLOCK_AREA_START
 
+// status setting
 final int TOP_AREA    = 0;
 final int BUTTOM_AREA = 1;
 final int RIGHT_AREA  = 2;
 final int LEFT_AREA   = 3;
-
-BarArea[] barAreas = new BarArea[4];
+final int[] NOMAL_COLOR = {224, 224, 252};
+final int[] FOCUS_COLOR = {175, 175, 247};
 
 enum BarStatus {
   LR,
   UD
 };
+
+// manage arrangement
+BarArea[] barAreas = new BarArea[4];
 
 void initBarArea() {
   BLOCK_AREA = BLOCK_AREA_END - BLOCK_AREA_START;
@@ -24,9 +29,14 @@ void initBarArea() {
 
 void drawBarArea() {
   for (int i = 0; i < 4; i++) {
-    fill(90, 185, 193);
     float[] topLeftCorner = barAreas[i].getTopLeftCorner();
     float[] buttomRightCorner = barAreas[i].getButtomRightCorner();
+    int[] colors;
+    
+    if (barAreas[i].inRange(mouseX, mouseY)) colors = FOCUS_COLOR;
+    else colors = NOMAL_COLOR;
+    
+    fill(colors[R], colors[G], colors[B]);
     rect(topLeftCorner[X], topLeftCorner[Y], buttomRightCorner[X] - topLeftCorner[X], buttomRightCorner[Y] - topLeftCorner[Y]);
   }
 }
