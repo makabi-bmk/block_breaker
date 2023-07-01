@@ -12,3 +12,8 @@ final int TOP_LEFT     = 0;
 final int TOP_RIGHT    = 1;
 final int BUTTOM_LEFT  = 2;
 final int BUTTOM_RIGHT = 3;
+
+enum BarStatus {
+  LR,
+  UD
+};
