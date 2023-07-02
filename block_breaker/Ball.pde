@@ -1,5 +1,5 @@
 final int MAX_BALL_NUM = 5;
-final float BALL_RADIUS = 40;
+final float BALL_RADIUS = 30;
 ArrayList<Ball> balls;
 
 void initBall() {
@@ -40,6 +40,8 @@ public class Ball {
   }
   
   public boolean isHitWall() {
+    println(this.x);
+    println(this.y);
     return false;
   }
   
@@ -48,16 +50,11 @@ public class Ball {
     this.y += this.vy;
   }
   
+  // このメソッドはthis.xとthis.yが動かない なぜ
   public int getHitBlock(Block[] blocks) {
     for (Block block : blocks) {
       float[] blockTopLeftCorner = block.getTopLeftCorner();
       float[] blockButtomRightCorner = block.getButtomRightCorner();
-      
-      //println("--------------");
-      //println(blockTopLeftCorner);
-      //println(blockButtomRightCorner);
-      //println(this.x);
-      //println(this.y);
       
       if (blockTopLeftCorner[X] <= this.x && this.x <= blockButtomRightCorner[X]) {
         if (blockTopLeftCorner[Y] <= this.y && this.y <= blockButtomRightCorner[Y]) {
@@ -72,13 +69,6 @@ public class Ball {
   public int getHitBlock(Block[] blocks, float x, float y) {
     for (Block block : blocks) {
       float[] blockTopLeftCorner = block.getTopLeftCorner();
-      float[] blockButtomRightCorner = block.getButtomRightCorner();
-      
-      //println("--------------");
-      //println(blockTopLeftCorner);
-      //println(blockButtomRightCorner);
-      //println(x);
-      //println(y);
       
       if (blockTopLeftCorner[X] <= x && x <= blockTopLeftCorner[X] + BLOCK_SIZE) {
         if (blockTopLeftCorner[Y] <= y && y <= blockTopLeftCorner[Y] + BLOCK_SIZE) {
@@ -91,24 +81,7 @@ public class Ball {
   }
   
   public void bounce() {
-    println(this.x);
-    println(this.y);
-    println("--------------");
-    this.x = -1 * this.x;
-    this.y = -1 * this.y;
-    //println("bounce");
-    println(this.x);
-    println(this.y);
-  }
-  
-  public void bounce(float x, float y) {
-    println(x);
-    println(y);
-    println("--------------");
-    this.x = -1 * x;
-    this.y = -1 * y;
-    //println("bounce");
-    println(this.x);
-    println(this.y);
+    this.vx = -1 * this.vx;
+    this.vy = -1 * this.vy;
   }
 }

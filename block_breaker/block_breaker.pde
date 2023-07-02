@@ -33,3 +33,7 @@ void checkCollision() {
     //ball.updatePosition();
   }
 }
+
+void mousePressed() {
+  addBall();
+}
