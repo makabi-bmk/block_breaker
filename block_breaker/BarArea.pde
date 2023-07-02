@@ -8,8 +8,8 @@ final int TOP_AREA    = 0;
 final int BUTTOM_AREA = 1;
 final int RIGHT_AREA  = 2;
 final int LEFT_AREA   = 3;
-final int[] NOMAL_COLOR = {180, 227, 242};
-final int[] FOCUS_COLOR = {175, 175, 247};
+final int[] NOMAL_COLOR = {229, 246, 251};
+final int[] FOCUS_COLOR = {180, 227, 242};
 
 // manage arrangement
 BarArea[] barAreas = new BarArea[4];

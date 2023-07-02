@@ -6,7 +6,7 @@ final float BLOCK_AREA_START  = 100;
 final float BLOCK_AREA_END    = 500;
 final float BLOCK_SIZE = (BLOCK_AREA_END - BLOCK_AREA_START) / BLOCK_AREA_DIVISION_NUM;
 final int BLOCK_AREA_NUM = BLOCK_AREA_DIVISION_NUM * BLOCK_AREA_DIVISION_NUM;
-final int BLOCK_MAX_NUM = BLOCK_AREA_NUM / 2;
+final int BLOCK_MAX_NUM = BLOCK_AREA_NUM / 5;
 
 // status setting
 final int STATUS_B = 0;
