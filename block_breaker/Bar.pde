@@ -37,16 +37,30 @@ public class Bar {
     float[] barTopLeftCorner = barArea.getTopLeftCorner();
     float[] barButtomRightCorner = barArea.getButtomRightCorner();
     
-    if (barArea.status == BarStatus.UD) {
-      this.corners[TOP_LEFT][Y]     = this.corners[TOP_RIGHT][Y]    = ((barButtomRightCorner[Y] + barTopLeftCorner[Y]) / 2) - (BAR_SHORT_SIZE / 2);
-      this.corners[BUTTOM_RIGHT][Y] = this.corners[BUTTOM_LEFT][Y]  = ((barButtomRightCorner[Y] + barTopLeftCorner[Y]) / 2) + (BAR_SHORT_SIZE / 2);
+    if (barArea.status == BarStatus.Top || barArea.status == BarStatus.Buttom) {
+      //this.corners[TOP_LEFT][Y]     = this.corners[TOP_RIGHT][Y]    = ((barButtomRightCorner[Y] + barTopLeftCorner[Y]) / 2) - (BAR_SHORT_SIZE / 2);
+      //this.corners[BUTTOM_RIGHT][Y] = this.corners[BUTTOM_LEFT][Y]  = ((barButtomRightCorner[Y] + barTopLeftCorner[Y]) / 2) + (BAR_SHORT_SIZE / 2);
       this.corners[TOP_LEFT][X]     = this.corners[BUTTOM_LEFT][X]  = x - BAR_LONG_SIZE;
       this.corners[TOP_RIGHT][X]    = this.corners[BUTTOM_RIGHT][X] = x + BAR_LONG_SIZE;
+      if (barArea.status == BarStatus.Top) {
+        this.corners[TOP_LEFT][Y]     = this.corners[TOP_RIGHT][Y]    = 0;
+        this.corners[BUTTOM_RIGHT][Y] = this.corners[BUTTOM_LEFT][Y]  = BAR_SHORT_SIZE;
+      } else {
+        this.corners[TOP_LEFT][Y]     = this.corners[TOP_RIGHT][Y]    = barButtomRightCorner[Y] - BAR_SHORT_SIZE;
+        this.corners[BUTTOM_RIGHT][Y] = this.corners[BUTTOM_LEFT][Y]  = barButtomRightCorner[Y];
+      }
     } else {
-      this.corners[TOP_LEFT][X]     = this.corners[BUTTOM_LEFT][X]  = ((barButtomRightCorner[X] + barTopLeftCorner[X]) / 2) - (BAR_SHORT_SIZE / 2);
-      this.corners[BUTTOM_RIGHT][X] = this.corners[BUTTOM_LEFT][X]  = ((barButtomRightCorner[X] + barTopLeftCorner[X]) / 2) + (BAR_SHORT_SIZE / 2);
+      //this.corners[TOP_LEFT][X]     = this.corners[BUTTOM_LEFT][X]  = ((barButtomRightCorner[X] + barTopLeftCorner[X]) / 2) - (BAR_SHORT_SIZE / 2);
+      //this.corners[BUTTOM_RIGHT][X] = this.corners[BUTTOM_LEFT][X]  = ((barButtomRightCorner[X] + barTopLeftCorner[X]) / 2) + (BAR_SHORT_SIZE / 2);
       this.corners[TOP_LEFT][Y]     = this.corners[TOP_RIGHT][Y]    = y - BAR_LONG_SIZE;
       this.corners[BUTTOM_LEFT][Y]  = this.corners[BUTTOM_RIGHT][Y] = y + BAR_LONG_SIZE;
+      if (barArea.status == BarStatus.Left) {
+        this.corners[TOP_LEFT][X]     = this.corners[BUTTOM_LEFT][X]  = 0;
+        this.corners[BUTTOM_RIGHT][X] = this.corners[BUTTOM_LEFT][X]  = BAR_SHORT_SIZE;
+      } else {
+        this.corners[TOP_LEFT][X]     = this.corners[BUTTOM_LEFT][X]  = barButtomRightCorner[X] - BAR_SHORT_SIZE;
+        this.corners[BUTTOM_RIGHT][X] = this.corners[BUTTOM_LEFT][X]  = barButtomRightCorner[X];
+      }
     }
   }
   

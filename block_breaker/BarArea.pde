@@ -1,6 +1,6 @@
 /* STATIC AREA START */
 //arrangement setting
-final float BAR_AREA_SIZE = 100;
+float BAR_AREA_SIZE;
 float BLOCK_AREA; // BLOCK_AREA_END - BLOCK_AREA_START
 
 // status setting
@@ -15,11 +15,12 @@ final int[] FOCUS_COLOR = {180, 227, 242};
 BarArea[] barAreas = new BarArea[4];
 
 void initBarArea() {
+  BAR_AREA_SIZE = BLOCK_AREA_START;
   BLOCK_AREA = BLOCK_AREA_END - BLOCK_AREA_START;
-  barAreas[TOP_AREA]    = new BarArea(BAR_AREA_SIZE, 0, BarStatus.UD);
-  barAreas[BUTTOM_AREA] = new BarArea(BAR_AREA_SIZE, BAR_AREA_SIZE + BLOCK_AREA, BarStatus.UD);
-  barAreas[RIGHT_AREA]  = new BarArea(BAR_AREA_SIZE + BLOCK_AREA, BAR_AREA_SIZE, BarStatus.LR);
-  barAreas[LEFT_AREA]   = new BarArea(0, BAR_AREA_SIZE, BarStatus.LR);
+  barAreas[TOP_AREA]    = new BarArea(BAR_AREA_SIZE, 0, BarStatus.Top);
+  barAreas[BUTTOM_AREA] = new BarArea(BAR_AREA_SIZE, BAR_AREA_SIZE + BLOCK_AREA, BarStatus.Buttom);
+  barAreas[RIGHT_AREA]  = new BarArea(BAR_AREA_SIZE + BLOCK_AREA, BAR_AREA_SIZE, BarStatus.Right);
+  barAreas[LEFT_AREA]   = new BarArea(0, BAR_AREA_SIZE, BarStatus.Left);
 }
 
 void drawBarArea() {
@@ -48,7 +49,7 @@ public class BarArea {
     this.corners[TOP_LEFT][X]    = this.corners[BUTTOM_LEFT][X]  = x;
     this.corners[TOP_LEFT][Y]    = this.corners[TOP_RIGHT][Y]    = y;
     
-    if (status == BarStatus.UD) {  
+    if (status == BarStatus.Top || status == BarStatus.Buttom) {  
       this.corners[TOP_RIGHT][X]   = this.corners[BUTTOM_RIGHT][X] = x + BLOCK_AREA;
       this.corners[BUTTOM_LEFT][Y] = this.corners[BUTTOM_RIGHT][Y] = y + BAR_AREA_SIZE;
     } else {
