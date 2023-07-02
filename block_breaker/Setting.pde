@@ -13,6 +13,8 @@ final int TOP_RIGHT    = 1;
 final int BUTTOM_LEFT  = 2;
 final int BUTTOM_RIGHT = 3;
 
+final int NONE = -1;
+
 enum BarStatus {
   Left,
   Right,

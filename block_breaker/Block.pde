@@ -80,6 +80,10 @@ public class Block {
     initColor();
   }
   
+  public int getID() {
+    return this.ID;
+  }
+  
   public boolean getIsVisiable() {
     return this.isVisiable;
   }
@@ -91,6 +95,11 @@ public class Block {
   public float[] getTopLeftCorner() {
     float[] topLeftCorner = {this.corners[TOP_LEFT][X], this.corners[TOP_RIGHT][Y]};
     return topLeftCorner;
+  }
+  
+  public float[] getButtomRightCorner() {
+    float[] buttomRightCorner = {this.corners[BUTTOM_RIGHT][X], this.corners[BUTTOM_RIGHT][Y]};
+    return buttomRightCorner;
   }
   
   private void initCoordinate(int x, int y) {

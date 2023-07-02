@@ -6,6 +6,8 @@ void setup() {
   initBlockCoordinate();
   initBarArea(); 
   initBar();
+  initBall();
+  addBall();
 }
 
 void draw() {
@@ -13,4 +15,21 @@ void draw() {
   drawBlocks();
   drawBarArea();
   drawBar();
+  checkCollision();
+  drawBalls();
+  
+}
+
+//check balls and blocks collision
+void checkCollision() {
+  for (Ball ball : balls) {
+    //println(ball.getX());
+    //println(ball.getY());
+    int hitBlockID = ball.getHitBlock(blocks, ball.getX(), ball.getY());
+    //println(hitBlockID);
+    if (hitBlockID != NONE) {
+      ball.bounce();
+    }
+    //ball.updatePosition();
+  }
 }
