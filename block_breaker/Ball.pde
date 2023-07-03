@@ -2,9 +2,13 @@ final int MAX_BALL_NUM = 5;
 final float BALL_RADIUS = 20;
 final float BALL_PADDING = 3;
 final float MIN_VELOCITY = 3;
-ArrayList<Ball> balls;
-
 int[] BALL_DEFAULT_COLOR; /* BLOCK_COLORS[STATUS_N] */
+
+/* ~0 BAD, 0~5 NORMAL, 6~10 GOOD 11^ VERYGOOD */
+int[] SCORE_THRESHOLD = {0, 5, 10};
+
+ArrayList<Ball> balls;
+int LAST_BALL_ID = 0;
 
 void initBall() {
   BALL_DEFAULT_COLOR = BLOCK_COLORS[STATUS_N];
@@ -13,8 +17,20 @@ void initBall() {
 
 void addBall() {
   if (balls.size() <= MAX_BALL_NUM) {
-    balls.add(new Ball());
+    balls.add(new Ball(getBallID()));
   }
+}
+
+void deleteBall(int ballID) {
+  for (int i = 0; i < balls.size(); i++) {
+    println("balls remove : " + i);
+    if (balls.get(i).getID() == ballID) balls.remove(i);
+    println("ballSize = " + balls.size());
+  }
+}
+
+int getBallID() {
+  return LAST_BALL_ID++;
 }
 
 void drawBalls() {
@@ -28,12 +44,14 @@ void drawBalls() {
 }
 
 public class Ball {
+  private int ID;
   private float x, y;
   private float vx, vy;
   private int score;
   private int[] mColor = new int[3];
   
-  public Ball() {
+  public Ball(int ID) {
+    this.ID = ID;
     this.x = START_WIDTH / 2;
     this.y = 700;
     this.vx = random(4);
@@ -41,6 +59,10 @@ public class Ball {
     this.mColor[R] = BALL_DEFAULT_COLOR[R];
     this.mColor[G] = BALL_DEFAULT_COLOR[G];
     this.mColor[B] = BALL_DEFAULT_COLOR[B];
+  }
+  
+  public int getID() {
+    return this.ID;
   }
   
   public float getX() {
@@ -56,7 +78,12 @@ public class Ball {
   }
   
   public boolean isHitTopWall() {
-    return ((this.y - BALL_RADIUS < 0) || (height < this.y + BALL_RADIUS));
+    return (this.y - BALL_RADIUS < 0);
+  }
+  
+  public boolean isFrameOut() {
+    return (height < this.y + BALL_RADIUS);
+    
   }
   
   public boolean isHitBar(Bar bar) {
@@ -95,6 +122,22 @@ public class Ball {
   
   private float getButtom() {
     return this.y + BALL_RADIUS;
+  }
+  
+  public void addScore(int statusNum) {
+    this.score += STATUS_SCORE[statusNum];
+    setColor();
+  }
+  
+  private void setColor() {
+    int status;
+    if      (this.score < SCORE_THRESHOLD[0]) status = STATUS_B;
+    else if (this.score < SCORE_THRESHOLD[1]) status = STATUS_N;
+    else if (this.score < SCORE_THRESHOLD[2]) status = STATUS_R;
+    else                                      status = STATUS_SR;
+    this.mColor[R] = BLOCK_COLORS[status][R];
+    this.mColor[G] = BLOCK_COLORS[status][G];
+    this.mColor[B] = BLOCK_COLORS[status][B];
   }
   
   public int[] getColor() {
