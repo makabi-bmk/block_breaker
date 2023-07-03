@@ -24,7 +24,7 @@ void draw() {
 
 //check balls and blocks collision
 void checkCollision() {
-  IntList removeBallsID;
+  IntList removeBallsID = new IntList();
   //Iterator iterator = ball.iterator();
   for (Ball ball : balls) {
   //Iterator<Ball> ballIterator = balls.iterator();
@@ -41,9 +41,11 @@ void checkCollision() {
     else if (ball.isHitTopWall())  ball.bounce(true);
     else if (ball.isHitBar(bar))   ball.bounce(bar);
     //else if (ball.isFrameOut())    deleteBall(ball.getID());
-    else if (ball.isFrameOut())    removeBallsID.set(ball.getID()));
+    else if (ball.isFrameOut())    removeBallsID.append(ball.getID());
   }
-  for ()
+  for (int removeBallID : removeBallsID) {
+    deleteBall(removeBallID);
+  }
 }
 
 void mousePressed() {

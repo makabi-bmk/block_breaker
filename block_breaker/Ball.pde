@@ -1,11 +1,11 @@
 final int MAX_BALL_NUM = 5;
-final float BALL_RADIUS = 20;
+final float BALL_RADIUS = 30;
 final float BALL_PADDING = 3;
 final float MIN_VELOCITY = 3;
 int[] BALL_DEFAULT_COLOR; /* BLOCK_COLORS[STATUS_N] */
 
-/* ~0 BAD, 0~5 NORMAL, 6~10 GOOD 11^ VERYGOOD */
-int[] SCORE_THRESHOLD = {0, 5, 10};
+/* ~0 BAD, 0~10 NORMAL, 11~30 GOOD 30^ VERYGOOD */
+int[] SCORE_THRESHOLD = {0, 10, 30};
 
 ArrayList<Ball> balls;
 int LAST_BALL_ID = 0;
@@ -52,8 +52,10 @@ public class Ball {
   
   public Ball(int ID) {
     this.ID = ID;
-    this.x = START_WIDTH / 2;
-    this.y = 700;
+    //this.x = START_WIDTH / 2;
+    //this.y = 600;
+    this.x = mouseX;
+    this.y = mouseY;
     this.vx = random(4);
     this.vy = -5;
     this.mColor[R] = BALL_DEFAULT_COLOR[R];
