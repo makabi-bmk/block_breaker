@@ -23,14 +23,17 @@ void draw() {
 //check balls and blocks collision
 void checkCollision() {
   for (Ball ball : balls) {
-    //println(ball.getX());
-    //println(ball.getY());
-    int hitBlockID = ball.getHitBlock(blocks, ball.getX(), ball.getY());
+    int hitBlockID = ball.getHitBlock(blocks);
     //println(hitBlockID);
     if (hitBlockID != NONE) {
       ball.bounce();
     }
-    //ball.updatePosition();
+    if (ball.isHitWall()) {
+      ball.bounce();
+    }
+    if (ball.isHitBar(bar)) {
+      ball.bounce();
+    }
   }
 }
 

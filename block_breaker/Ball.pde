@@ -1,5 +1,6 @@
 final int MAX_BALL_NUM = 5;
-final float BALL_RADIUS = 30;
+final float BALL_RADIUS = 20;
+final float BALL_PADDING = 3;
 ArrayList<Ball> balls;
 
 void initBall() {
@@ -27,7 +28,7 @@ public class Ball {
   public Ball() {
     this.x = START_WIDTH / 2;
     this.y = 700;
-    this.vx = 0;
+    this.vx = 3;
     this.vy = -5;
   }
   
@@ -38,10 +39,25 @@ public class Ball {
   public float getY() {
     return this.y;
   }
+   
+  public boolean isHitWall() {    
+    return ((this.x - BALL_RADIUS < 0) || (width < this.x + BALL_RADIUS) || (this.y - BALL_RADIUS < 0) || (height < this.y + BALL_RADIUS));
+  }
   
-  public boolean isHitWall() {
-    println(this.x);
-    println(this.y);
+  public boolean isHitBar(Bar bar) {
+    if (bar.getVisiable() == false) return false;
+    
+    float barLeft = (bar.getTopLeftCorner())[X];
+    float barRight = (bar.getButtomRightCorner())[X];
+    float barTop = (bar.getTopLeftCorner())[Y];
+    float barButtom = (bar.getButtomRightCorner())[Y];
+    
+    if ((barLeft <= getLeft()) && (getRight() <= barRight)) {
+      if (barTop <= getButtom() && calcDistance(barTop, getButtom()) < BALL_RADIUS
+     || getTop() <= barButtom && calcDistance(getTop(), barButtom) < BALL_RADIUS) {
+        return true;
+      }
+    }
     return false;
   }
   
@@ -50,29 +66,28 @@ public class Ball {
     this.y += this.vy;
   }
   
-  // このメソッドはthis.xとthis.yが動かない なぜ
+  private float getLeft() {
+    return this.x - BALL_RADIUS;
+  }
+  
+  private float getRight() {
+    return this.x + BALL_RADIUS;
+  }
+  
+  private float getTop() {
+    return this.y - BALL_RADIUS;
+  }
+  
+  private float getButtom() {
+    return this.y + BALL_RADIUS;
+  }
+  
   public int getHitBlock(Block[] blocks) {
     for (Block block : blocks) {
       float[] blockTopLeftCorner = block.getTopLeftCorner();
-      float[] blockButtomRightCorner = block.getButtomRightCorner();
       
-      if (blockTopLeftCorner[X] <= this.x && this.x <= blockButtomRightCorner[X]) {
-        if (blockTopLeftCorner[Y] <= this.y && this.y <= blockButtomRightCorner[Y]) {
-          //println("collision");
-          return block.getID();
-        }
-      } 
-    }
-    return NONE;
-  }
-  
-  public int getHitBlock(Block[] blocks, float x, float y) {
-    for (Block block : blocks) {
-      float[] blockTopLeftCorner = block.getTopLeftCorner();
-      
-      if (blockTopLeftCorner[X] <= x && x <= blockTopLeftCorner[X] + BLOCK_SIZE) {
-        if (blockTopLeftCorner[Y] <= y && y <= blockTopLeftCorner[Y] + BLOCK_SIZE) {
-          println("collision");
+      if (blockTopLeftCorner[X] <= this.x + BALL_RADIUS && this.x - BALL_RADIUS <= blockTopLeftCorner[X] + BLOCK_SIZE) {
+        if (blockTopLeftCorner[Y] <= this.y && this.y <= blockTopLeftCorner[Y] + BLOCK_SIZE) {
           return block.getID();
         }
       } 

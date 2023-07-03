@@ -21,3 +21,7 @@ enum BarStatus {
   Top,
   Buttom
 };
+
+float calcDistance(float a, float b) {
+  return abs(a - b);
+}

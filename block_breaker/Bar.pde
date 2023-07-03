@@ -21,8 +21,11 @@ void drawBar() {
       //fill(colors[R], colors[G], colors[B]);
       fill(0, 0, 0);
       rect(topLeftCorner[X], topLeftCorner[Y], buttomRightCorner[X] - topLeftCorner[X], buttomRightCorner[Y] - topLeftCorner[Y]);
+      bar.setVisiable(true);
+      return;
     }
   }
+  bar.setVisiable(false);
 }
 
 ///* STATIC AREA END */
@@ -30,10 +33,12 @@ void drawBar() {
 ///* CLASS AREA START */
 public class Bar {
   private float[][] corners = new float[4][2];
+  private boolean visiable;
   
   public void setBarCorner(BarArea barArea, float x, float y) {
     
     //println(barArea);
+    this.visiable = false;
     float[] barTopLeftCorner = barArea.getTopLeftCorner();
     float[] barButtomRightCorner = barArea.getButtomRightCorner();
     
@@ -62,6 +67,14 @@ public class Bar {
         this.corners[BUTTOM_RIGHT][X] = this.corners[BUTTOM_LEFT][X]  = barButtomRightCorner[X];
       }
     }
+  }
+  
+  public void setVisiable(boolean v) {
+    this.visiable = v;
+  }
+  
+  public boolean getVisiable() {
+    return this.visiable;
   }
   
   public float[] getTopLeftCorner() {
