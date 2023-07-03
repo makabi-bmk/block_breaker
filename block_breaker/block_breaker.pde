@@ -62,8 +62,10 @@ void mousePressed() {
 }
 
 void keyPressed() {
-  if (keyCode == RIGHT || keyCode == LEFT) {
-    dango.move(keyCode);
+  if (keyCode == RIGHT || keyCode == 'D') {
+    dango.move(true);
+  } else if(keyCode == LEFT || keyCode == 'A') {
+    dango.move(false);
   }
 }
 

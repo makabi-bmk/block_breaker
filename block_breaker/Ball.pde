@@ -188,15 +188,31 @@ public class Ball {
   }
   
   public void bounce(boolean isTop) {
-    if (isTop) this.vy = -1 * this.vy;
-    else       this.vx = -1 * this.vx;
+    if (isTop) {
+      this.y = BALL_RADIUS;
+      this.vy = abs(this.vy);
+    }
+    else this.vx = -1 * this.vx;
   }
   
   public void bounce(Bar bar) {
     BarStatus status = bar.getStatus();
-    if (status == BarStatus.Top || status == BarStatus.Buttom)
-      this.vy = -1 * max(this.vy, MIN_VELOCITY);
-    else if (status == BarStatus.Top || status == BarStatus.Buttom)
+    println(bar.vx);
+    println(bar.vy);
+    println("---------");
+    
+    if (status == BarStatus.Top){
+      this.vx = -1 * max(bar.vx, MIN_VELOCITY);
+      this.vy = abs(this.vy);
+    } else if (status == BarStatus.Buttom) {
+      this.vx = -1 * max(bar.vx, MIN_VELOCITY);
+      this.vy = -1 * abs(this.vy);
+    } else if (status == BarStatus.Right) {
       this.vy = max(bar.vy, MIN_VELOCITY);
+      this.vx = -1 * abs(this.vx);
+    } else if (status == BarStatus.Left) {
+      this.vy = max(bar.vy, MIN_VELOCITY);
+      this.vx = abs(this.vx);
+    }
   }
 }

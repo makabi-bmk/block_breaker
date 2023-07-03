@@ -10,6 +10,8 @@ final int MAX_MOCHI_NUM = 3;
 float MOCHI_RADIUS; /* BALL_RADIUS * 1.3 */
 float[] MOCHI_COORDINATE_Y = new float[MAX_MOCHI_NUM];
 
+final int[] DANGO_BAR_COLOR = {99, 96, 89};
+
 Dango dango = new Dango();
 PImage hand;
 
@@ -34,7 +36,7 @@ void drawDango() {
   float[] dangoTopLeftCorner = dango.getTopLeftCorner();
   
   strokeWeight(DANGO_BAR_WEIGHT);
-  stroke(0 ,0, 0);
+  stroke(DANGO_BAR_COLOR[R] ,DANGO_BAR_COLOR[G], DANGO_BAR_COLOR[B]);
   line(dangoTopLeftCorner[X] + HAND_SIZE / 2, dangoTopLeftCorner[Y], dangoTopLeftCorner[X] + HAND_SIZE / 2, height);
   noStroke();
   
@@ -107,17 +109,13 @@ public class Dango {
     return this.x;
   }
   
-  public void move(int pressedKey) {
-    switch(pressedKey) {
-      case RIGHT:
-        this.x += DANGO_VX;
-        if (this.x + HAND_SIZE >= width) this.x = width - HAND_SIZE;
-        break;
-       
-       case LEFT:
-         this.x -= DANGO_VX;
-         if (this.x < 0) this.x = 0;
-         break;
+  public void move(boolean isRight) {
+    if(isRight) {
+      this.x += DANGO_VX;
+      if (this.x + HAND_SIZE >= width) this.x = width - HAND_SIZE;
+    } else {
+      this.x -= DANGO_VX;
+      if (this.x < 0) this.x = 0;
     }
   }
 }

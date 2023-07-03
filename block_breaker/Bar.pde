@@ -1,6 +1,7 @@
 final float BAR_SHORT_SIZE = 20;
-//final int BAR_
+final int[] BAR_COLOR = {12, 49, 152};
 float BAR_LONG_SIZE;  // BAR_AREA_SIZE
+
 
 Bar bar;
 
@@ -20,8 +21,7 @@ void drawBar() {
       float[] topLeftCorner = bar.getTopLeftCorner();
       float[] buttomRightCorner = bar.getButtomRightCorner();
       
-      //fill(colors[R], colors[G], colors[B]);
-      fill(0, 0, 0);
+      fill(BAR_COLOR[R], BAR_COLOR[G], BAR_COLOR[B]);
       rect(topLeftCorner[X], topLeftCorner[Y], buttomRightCorner[X] - topLeftCorner[X], buttomRightCorner[Y] - topLeftCorner[Y]);
       bar.setVisiable(true);
       return;
