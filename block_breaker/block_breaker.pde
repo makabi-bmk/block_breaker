@@ -32,7 +32,7 @@ void checkCollision() {
       ball.bounce();
     }
     if (ball.isHitBar(bar)) {
-      ball.bounce();
+      ball.bounce(bar);
     }
   }
 }

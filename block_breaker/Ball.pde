@@ -1,6 +1,7 @@
 final int MAX_BALL_NUM = 5;
 final float BALL_RADIUS = 20;
 final float BALL_PADDING = 3;
+final float MIN_VELOCITY = 3;
 ArrayList<Ball> balls;
 
 void initBall() {
@@ -24,6 +25,7 @@ void drawBalls() {
 public class Ball {
   private float x, y;
   private float vx, vy;
+  private float ax, ay;
   
   public Ball() {
     this.x = START_WIDTH / 2;
@@ -98,5 +100,16 @@ public class Ball {
   public void bounce() {
     this.vx = -1 * this.vx;
     this.vy = -1 * this.vy;
+  }
+  
+  public void bounce(Bar bar) {
+    BarStatus status = bar.getStatus();
+    if (status == BarStatus.Top || status == BarStatus.Buttom) {
+      this.vx = max(bar.vx,MIN_VELOCITY);
+      this.vy = -1 * max(this.vy, MIN_VELOCITY);
+    } else if (status == BarStatus.Top || status == BarStatus.Buttom) {
+      this.vx = -1 * max(this.vx, MIN_VELOCITY);
+      this.vy = max(bar.vy, MIN_VELOCITY);
+    }
   }
 }

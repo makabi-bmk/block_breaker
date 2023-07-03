@@ -11,9 +11,12 @@ void initBar() {
 }
 
 void drawBar() {
+  bar.setBarVelocity(mouseX, mouseY);
+  
   for (int i = 0; i < 4; i++) {
     if (barAreas[i].inRange(mouseX, mouseY)) {
       bar.setBarCorner(barAreas[i], mouseX, mouseY);
+      bar.setStatus(barAreas[i].status);
 
       float[] topLeftCorner = bar.getTopLeftCorner();
       float[] buttomRightCorner = bar.getButtomRightCorner();
@@ -34,11 +37,20 @@ void drawBar() {
 public class Bar {
   private float[][] corners = new float[4][2];
   private boolean visiable;
+  private float pastX, pastY;
+  private float vx, vy;
+  private BarStatus status;
+  
+  public Bar() {
+    this.pastX = mouseX;
+    this.pastY = mouseY;
+  }
   
   public void setBarCorner(BarArea barArea, float x, float y) {
     
     //println(barArea);
     this.visiable = false;
+    
     float[] barTopLeftCorner = barArea.getTopLeftCorner();
     float[] barButtomRightCorner = barArea.getButtomRightCorner();
     
@@ -67,6 +79,21 @@ public class Bar {
         this.corners[BUTTOM_RIGHT][X] = this.corners[BUTTOM_LEFT][X]  = barButtomRightCorner[X];
       }
     }
+  }
+  
+  public void setBarVelocity(float x, float y) {
+      this.vx = x - this.pastX;
+      this.vy = x - this.pastY;
+      this.pastX = x;
+      this.pastY = y;
+  }
+  
+  public void setStatus(BarStatus status) {
+    this.status = status;
+  }
+  
+  public BarStatus getStatus() {
+    return this.status;
   }
   
   public void setVisiable(boolean v) {
