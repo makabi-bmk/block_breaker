@@ -70,7 +70,7 @@ public class Dango {
   }
   
   public void reset() {
-    
+    this.mochi.clear();
   }
   
   public float[] getTopLeftCorner() {
