@@ -1,10 +1,11 @@
 final float BAR_SHORT_SIZE = 20;
-float BAR_LONG_SIZE;  // BAR_AREA_SIZE * 2
+//final int BAR_
+float BAR_LONG_SIZE;  // BAR_AREA_SIZE
 
 Bar bar;
 
 void initBar() {
-  BAR_LONG_SIZE = BAR_AREA_SIZE * 2;
+  BAR_LONG_SIZE = BAR_AREA_SIZE;
   bar = new Bar();
 }
 
