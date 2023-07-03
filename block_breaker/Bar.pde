@@ -51,7 +51,7 @@ public class Bar {
     //println(barArea);
     this.visiable = false;
     
-    float[] barTopLeftCorner = barArea.getTopLeftCorner();
+    //float[] barTopLeftCorner = barArea.getTopLeftCorner();
     float[] barButtomRightCorner = barArea.getButtomRightCorner();
     
     if (barArea.status == BarStatus.Top || barArea.status == BarStatus.Buttom) {

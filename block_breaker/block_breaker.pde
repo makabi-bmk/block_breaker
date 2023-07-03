@@ -25,7 +25,10 @@ void checkCollision() {
   for (Ball ball : balls) {
     int hitBlockID = ball.getHitBlock(blocks);
     //println(hitBlockID);
-    if (hitBlockID != NONE) ball.bounce();
+    if (hitBlockID != NONE) {
+      ball.bounce();
+      deleteBlock(hitBlockID);
+    }
     else if (ball.isHitSideWall()) ball.bounce(false);
     else if (ball.isHitTopWall())  ball.bounce(true);
     else if (ball.isHitBar(bar)) ball.bounce(bar);

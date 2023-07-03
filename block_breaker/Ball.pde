@@ -25,12 +25,11 @@ void drawBalls() {
 public class Ball {
   private float x, y;
   private float vx, vy;
-  private float ax, ay;
   
   public Ball() {
     this.x = START_WIDTH / 2;
     this.y = 700;
-    this.vx = 3;
+    this.vx = random(4);
     this.vy = -5;
   }
   
@@ -90,6 +89,7 @@ public class Ball {
   
   public int getHitBlock(Block[] blocks) {
     for (Block block : blocks) {
+      if (block.getVisiable() == false) continue;
       float[] blockTopLeftCorner = block.getTopLeftCorner();
       
       if (blockTopLeftCorner[X] <= this.x + BALL_RADIUS && this.x - BALL_RADIUS <= blockTopLeftCorner[X] + BLOCK_SIZE) {
