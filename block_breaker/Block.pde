@@ -14,7 +14,8 @@ final int STATUS_B = 0;
 final int STATUS_N = 1;
 final int STATUS_R = 2;
 final int STATUS_SR = 3;
-final int[][] BLOCK_COLORS = {{180, 207, 143}, {125, 125, 125}, {255, 165, 0}, {139, 0, 0}};
+final int[][] BLOCK_COLORS = {{50, 168, 82}, {230, 229, 227}, {242, 227, 63}, {189, 91, 53}};
+filal int[] STATUS_SCORE = {-7, 1, 3, 5};
 
 // manage arrangement
 boolean[][] blockExists = new boolean[BLOCK_AREA_DIVISION_NUM][BLOCK_AREA_DIVISION_NUM];

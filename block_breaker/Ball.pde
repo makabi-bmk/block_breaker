@@ -4,7 +4,10 @@ final float BALL_PADDING = 3;
 final float MIN_VELOCITY = 3;
 ArrayList<Ball> balls;
 
+int[] BALL_DEFAULT_COLOR; /* BLOCK_COLORS[STATUS_N] */
+
 void initBall() {
+  BALL_DEFAULT_COLOR = BLOCK_COLORS[STATUS_N];
   balls = new ArrayList<Ball>();
 }
 
@@ -17,7 +20,9 @@ void addBall() {
 void drawBalls() {
   for (Ball ball : balls) {
     ball.updateCoordinate();
-    fill(0, 0, 0);
+    int[] mColor = ball.getColor();
+    //fill(0, 0, 0);
+    fill(mColor[R], mColor[G], mColor[B]);
     ellipse(ball.getX(), ball.getY(), BALL_RADIUS, BALL_RADIUS);
   }
 }
@@ -25,12 +30,17 @@ void drawBalls() {
 public class Ball {
   private float x, y;
   private float vx, vy;
+  private int score;
+  private int[] mColor = new int[3];
   
   public Ball() {
     this.x = START_WIDTH / 2;
     this.y = 700;
     this.vx = random(4);
     this.vy = -5;
+    this.mColor[R] = BALL_DEFAULT_COLOR[R];
+    this.mColor[G] = BALL_DEFAULT_COLOR[G];
+    this.mColor[B] = BALL_DEFAULT_COLOR[B];
   }
   
   public float getX() {
@@ -85,6 +95,10 @@ public class Ball {
   
   private float getButtom() {
     return this.y + BALL_RADIUS;
+  }
+  
+  public int[] getColor() {
+    return this.mColor;
   }
   
   public int getHitBlock(Block[] blocks) {
