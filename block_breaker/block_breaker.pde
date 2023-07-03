@@ -10,17 +10,29 @@ void setup() {
   initBar();
   initBall();
   initDango();
+  initTime();
   //addBall();
 }
 
 void draw() {
+  int time = millis() / 1000;
+  if (isFinish(time)) FINISH_FLAG = true;
+  println(isFinish(time));
   background(255, 255, 255);
-  drawBlocks();
-  drawBarArea();
-  drawBar();
-  checkCollision();
-  drawBalls();
-  drawDango(); 
+  
+  if (FINISH_FLAG) {
+    drawFinish();
+    //noLoop();
+  } else {
+    drawBlocks();
+    drawBarArea();
+    drawBar();
+    checkCollision();
+    drawBalls();
+    drawDango();
+    drawTime(time);
+    drawScore();
+  }
 }
 
 //check balls and blocks collision
@@ -45,6 +57,7 @@ void checkCollision() {
     else if (ball.isHitDango()) {
       removeBallsID.append(ball.getID());
       if (dango.addMochi(ball.getScore()) >= MAX_MOCHI_NUM) {
+        addScore(dango.getScore());
         dango.reset();
       }
     }

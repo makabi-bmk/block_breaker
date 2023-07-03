@@ -121,12 +121,19 @@ public class Ball {
     float barTop = barTopLeftCorner[Y];
     float barButtom = barButtomRightCorner[Y];
     
-    if ((barLeft <= getLeft()) && (getRight() <= barRight)) {
-      if (barTop <= getButtom() && calcDistance(barTop, getButtom()) < BALL_RADIUS
-     || getTop() <= barButtom && calcDistance(getTop(), barButtom) < BALL_RADIUS) {
+    //if ((barLeft <= getLeft()) && (getRight() <= barRight)) {
+    //  if (barTop <= getButtom() && calcDistance(barTop, getButtom()) < BALL_RADIUS
+    // || getTop() <= barButtom && calcDistance(getTop(), barButtom) < BALL_RADIUS) {
+    //    return true;
+    //  }
+    //}
+    
+    if (barLeft <= this.x && this.x <= barRight) {
+      if (barTop <= this.y && this.y <= barButtom) {
         return true;
       }
     }
+    
     return false;
   }
   

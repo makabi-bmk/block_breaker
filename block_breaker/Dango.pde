@@ -50,10 +50,6 @@ public class Dango {
     this.x = width / 2;
     this.y = START_HEIGHT - HAND_SIZE;
     this.mochi = new ArrayList<Ball>();
-    resetScore();
-  }
-  
-  private void resetScore() {
     this.score = 0;
   }
   
@@ -66,11 +62,17 @@ public class Dango {
   
   public int addMochi(int score) { 
     this.mochi.add(new Ball(score));
+    this.score += score;
     return this.mochi.size();
   }
   
   public void reset() {
     this.mochi.clear();
+    this.score = 0;
+  }
+  
+  public int getScore() { 
+    return this.score;
   }
   
   public float[] getTopLeftCorner() {
