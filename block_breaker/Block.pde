@@ -31,7 +31,6 @@ void initBlockCoordinate() {
     int y = getBlockCoordinateY(b.get(i));
     blockExists[x][y] = true;
     blocks[i] = new Block(i, x, y);
-    //println(blocks[i]);
   }
 }
 
@@ -52,7 +51,6 @@ void drawBlocks() {
 void deleteBlock(int blockID) {
   Block block = blocks[blockID];
   block.delete();
-  //block.visiable = false;
   blockExists[block.getX()][block.getY()] = false;
 }
 

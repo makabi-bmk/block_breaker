@@ -17,15 +17,13 @@ void initBall() {
 
 void addBall() {
   if (balls.size() <= MAX_BALL_NUM) {
-    balls.add(new Ball(getBallID()));
+    balls.add(new Ball());
   }
 }
 
 void deleteBall(int ballID) {
   for (int i = 0; i < balls.size(); i++) {
-    println("balls remove : " + i);
     if (balls.get(i).getID() == ballID) balls.remove(i);
-    println("ballSize = " + balls.size());
   }
 }
 
@@ -50,8 +48,8 @@ public class Ball {
   private int score;
   private int[] mColor = new int[3];
   
-  public Ball(int ID) {
-    this.ID = ID;
+  public Ball() {
+    this.ID = getBallID();
     //this.x = START_WIDTH / 2;
     //this.y = 600;
     this.x = mouseX;
@@ -61,6 +59,10 @@ public class Ball {
     this.mColor[R] = BALL_DEFAULT_COLOR[R];
     this.mColor[G] = BALL_DEFAULT_COLOR[G];
     this.mColor[B] = BALL_DEFAULT_COLOR[B];
+  }
+  
+  public Ball(int score) {
+    setColor(score);
   }
   
   public int getID() {
@@ -73,6 +75,10 @@ public class Ball {
   
   public float getY() {
     return this.y;
+  }
+  
+  public int getScore() {
+    return this.score;
   }
    
   public boolean isHitSideWall() {    
@@ -88,13 +94,32 @@ public class Ball {
     
   }
   
+  public boolean isHitDango() {
+    float[] dangoTopLeftCorner = dango.getTopLeftCorner();
+    float[] dangoButtomRightCorner = dango.getButtomRightCorner();
+    
+    float dangoLeft = dangoTopLeftCorner[X];
+    float dangoRight = dangoButtomRightCorner[X];
+    float dangoTop = dangoTopLeftCorner[Y];
+    
+    if (dangoLeft <= this.x && this.x <= dangoRight) {
+      if (dangoTop < this.y) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
   public boolean isHitBar(Bar bar) {
     if (bar.getVisiable() == false) return false;
     
-    float barLeft = (bar.getTopLeftCorner())[X];
-    float barRight = (bar.getButtomRightCorner())[X];
-    float barTop = (bar.getTopLeftCorner())[Y];
-    float barButtom = (bar.getButtomRightCorner())[Y];
+    float[] barTopLeftCorner = bar.getTopLeftCorner();
+    float[] barButtomRightCorner = bar.getButtomRightCorner();
+    
+    float barLeft = barTopLeftCorner[X];
+    float barRight = barButtomRightCorner[X];
+    float barTop = barTopLeftCorner[Y];
+    float barButtom = barButtomRightCorner[Y];
     
     if ((barLeft <= getLeft()) && (getRight() <= barRight)) {
       if (barTop <= getButtom() && calcDistance(barTop, getButtom()) < BALL_RADIUS
@@ -108,6 +133,11 @@ public class Ball {
   public void updateCoordinate() {
     this.x += this.vx;
     this.y += this.vy;
+  }
+  
+  public void updateCoordinate(float x, float y) {
+    this.x = x;
+    this.y = y;
   }
   
   private float getLeft() {
@@ -136,6 +166,17 @@ public class Ball {
     if      (this.score < SCORE_THRESHOLD[0]) status = STATUS_B;
     else if (this.score < SCORE_THRESHOLD[1]) status = STATUS_N;
     else if (this.score < SCORE_THRESHOLD[2]) status = STATUS_R;
+    else                                      status = STATUS_SR;
+    this.mColor[R] = BLOCK_COLORS[status][R];
+    this.mColor[G] = BLOCK_COLORS[status][G];
+    this.mColor[B] = BLOCK_COLORS[status][B];
+  }
+  
+  private void setColor(int score) {
+    int status;
+    if      (score < SCORE_THRESHOLD[0]) status = STATUS_B;
+    else if (score < SCORE_THRESHOLD[1]) status = STATUS_N;
+    else if (score < SCORE_THRESHOLD[2]) status = STATUS_R;
     else                                      status = STATUS_SR;
     this.mColor[R] = BLOCK_COLORS[status][R];
     this.mColor[G] = BLOCK_COLORS[status][G];

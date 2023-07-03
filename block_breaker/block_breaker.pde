@@ -9,7 +9,8 @@ void setup() {
   initBarArea(); 
   initBar();
   initBall();
-  addBall();
+  initDango();
+  //addBall();
 }
 
 void draw() {
@@ -19,7 +20,7 @@ void draw() {
   drawBar();
   checkCollision();
   drawBalls();
-  
+  drawDango(); 
 }
 
 //check balls and blocks collision
@@ -41,6 +42,12 @@ void checkCollision() {
     else if (ball.isHitTopWall())  ball.bounce(true);
     else if (ball.isHitBar(bar))   ball.bounce(bar);
     //else if (ball.isFrameOut())    deleteBall(ball.getID());
+    else if (ball.isHitDango()) {
+      removeBallsID.append(ball.getID());
+      if (dango.addMochi(ball.getScore()) >= MAX_MOCHI_NUM) {
+        dango.reset();
+      }
+    }
     else if (ball.isFrameOut())    removeBallsID.append(ball.getID());
   }
   for (int removeBallID : removeBallsID) {
@@ -50,4 +57,10 @@ void checkCollision() {
 
 void mousePressed() {
   addBall();
+}
+
+void keyPressed() {
+  if (keyCode == RIGHT || keyCode == LEFT) {
+    dango.move(keyCode);
+  }
 }
