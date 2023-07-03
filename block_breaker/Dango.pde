@@ -1,5 +1,8 @@
+import ddf.minim.*;
+
 final float DANGO_BAR_LENGTH = 100;
 final String HAND_NAME = "hand.png";
+final String EATING_SOUND_NAME = "eating.mp3";
 final float HAND_SIZE = 60;
 final float DANGO_BAR_WEIGHT = 10;
 final float DANGO_VX = 30;
@@ -10,9 +13,14 @@ float[] MOCHI_COORDINATE_Y = new float[MAX_MOCHI_NUM];
 Dango dango = new Dango();
 PImage hand;
 
+Minim minim;
+AudioPlayer player;
+
 void initDango() {
   hand = loadImage(HAND_NAME);
   MOCHI_RADIUS = BALL_RADIUS * 1.3;
+  minim = new Minim(this);
+  player = minim.loadFile(EATING_SOUND_NAME);
   
   float mochiY = height - (HAND_SIZE + BALL_RADIUS);
   for (int i = 0; i < MAX_MOCHI_NUM; i++) {

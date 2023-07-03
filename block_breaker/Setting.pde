@@ -1,6 +1,6 @@
 final int START_HEIGHT = 900;
 final int START_WIDTH = 600;
-final int MAX_TIME = 3;
+final int MAX_TIME = 30;
 
 final int FINISH_TEXT_COORDINATE_Y = 300;
 final int FINISH_TEXT_SIZE = 50;

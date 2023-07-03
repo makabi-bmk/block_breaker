@@ -45,6 +45,8 @@ void checkCollision() {
     else if (ball.isHitDango()) {
       removeBallsID.append(ball.getID());
       if (dango.addMochi(ball.getScore()) >= MAX_MOCHI_NUM) {
+        player.play();
+        player.rewind();
         addScore(dango.getScore());
         dango.reset();
       }
@@ -63,4 +65,10 @@ void keyPressed() {
   if (keyCode == RIGHT || keyCode == LEFT) {
     dango.move(keyCode);
   }
+}
+
+void stop() {
+  player.close();
+  minim.stop();
+  super.stop();
 }
