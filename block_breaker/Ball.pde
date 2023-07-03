@@ -42,8 +42,12 @@ public class Ball {
     return this.y;
   }
    
-  public boolean isHitWall() {    
-    return ((this.x - BALL_RADIUS < 0) || (width < this.x + BALL_RADIUS) || (this.y - BALL_RADIUS < 0) || (height < this.y + BALL_RADIUS));
+  public boolean isHitSideWall() {    
+    return ((this.x - BALL_RADIUS < 0) || (width < this.x + BALL_RADIUS));
+  }
+  
+  public boolean isHitTopWall() {
+    return ((this.y - BALL_RADIUS < 0) || (height < this.y + BALL_RADIUS));
   }
   
   public boolean isHitBar(Bar bar) {
@@ -98,17 +102,30 @@ public class Ball {
   }
   
   public void bounce() {
-    this.vx = -1 * this.vx;
-    this.vy = -1 * this.vy;
+    //TODO: 跳ね返り方どうしよう
+    this.vx = (random(1) > 0.5) ? this.vx : -1 * this.vx;
+    //this.vy = -1 * this.vy;
+    this.vy = (random(1) > 0.9) ? this.vy : -1 * this.vy;
+  }
+  
+  public void bounce(boolean isTop) {
+    if (isTop) {
+      //this.vx = -1 * this.vx;
+      this.vy = -1 * this.vy;
+    } else {
+      this.vx = -1 * this.vx;
+      //this.vy = -1 * this.vy;
+    }
+    
   }
   
   public void bounce(Bar bar) {
     BarStatus status = bar.getStatus();
     if (status == BarStatus.Top || status == BarStatus.Buttom) {
-      this.vx = max(bar.vx,MIN_VELOCITY);
+      //this.vx = max(bar.vx,MIN_VELOCITY);
       this.vy = -1 * max(this.vy, MIN_VELOCITY);
     } else if (status == BarStatus.Top || status == BarStatus.Buttom) {
-      this.vx = -1 * max(this.vx, MIN_VELOCITY);
+      //this.vx = -1 * max(this.vx, MIN_VELOCITY);
       this.vy = max(bar.vy, MIN_VELOCITY);
     }
   }
