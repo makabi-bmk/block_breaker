@@ -36,8 +36,6 @@ float calcDistance(float a, float b) {
 }
 
 void drawFinish() {
-  background(255, 255, 255);
-  
   textSize(FINISH_TEXT_SIZE);
   text("score : " + totalScore, width / 2 - DANGO_IMG_SIZE / 2, FINISH_TEXT_COORDINATE_Y);
   

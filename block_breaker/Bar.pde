@@ -1,8 +1,6 @@
-/* STATIC AREA START */
 final float BAR_SHORT_SIZE = 20;
 float BAR_LONG_SIZE;  // BAR_AREA_SIZE * 2
 
-// manage arrangement
 Bar bar;
 
 void initBar() {
@@ -31,9 +29,6 @@ void drawBar() {
   bar.setVisiable(false);
 }
 
-///* STATIC AREA END */
-
-///* CLASS AREA START */
 public class Bar {
   private float[][] corners = new float[4][2];
   private boolean visiable;
@@ -47,11 +42,8 @@ public class Bar {
   }
   
   public void setBarCorner(BarArea barArea, float x, float y) {
-    
-    //println(barArea);
     this.visiable = false;
     
-    //float[] barTopLeftCorner = barArea.getTopLeftCorner();
     float[] barButtomRightCorner = barArea.getButtomRightCorner();
     
     if (barArea.status == BarStatus.Top || barArea.status == BarStatus.Buttom) {
@@ -114,4 +106,3 @@ public class Bar {
     return buttomRightCorner;
   }
 }
-///* CLASS AREA END */

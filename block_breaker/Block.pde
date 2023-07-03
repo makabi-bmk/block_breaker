@@ -1,6 +1,3 @@
-/* STATIC AREA START */
-
-// arrangement setting
 final int BLOCK_AREA_DIVISION_NUM = 20;
 final float BLOCK_AREA_START  = 100;
 final float BLOCK_AREA_END    = 500;
@@ -9,7 +6,6 @@ final int BLOCK_AREA_NUM = BLOCK_AREA_DIVISION_NUM * BLOCK_AREA_DIVISION_NUM;
 final int BLOCK_MAX_NUM = BLOCK_AREA_NUM / 5;
 final int INTERVAL_TIME = 30;
 
-// status setting
 final int STATUS_B = 0;
 final int STATUS_N = 1;
 final int STATUS_R = 2;
@@ -17,7 +13,6 @@ final int STATUS_SR = 3;
 final int[][] BLOCK_COLORS = {{50, 168, 82}, {230, 229, 227}, {242, 227, 63}, {189, 91, 53}};
 final int[] STATUS_SCORE = {-7, 1, 3, 5};
 
-// manage arrangement
 boolean[][] blockExists = new boolean[BLOCK_AREA_DIVISION_NUM][BLOCK_AREA_DIVISION_NUM];
 Block[] blocks = new Block[BLOCK_MAX_NUM];
 
@@ -70,9 +65,6 @@ int getBlockCoordinateY(int num) {
   return num % BLOCK_AREA_DIVISION_NUM;
 }
 
-/* STATIC AREA END */
-
-/* CLASS AREA START */
 public class Block {
   
   private int ID;
@@ -176,4 +168,3 @@ public class Block {
     return "ID = " + this.ID + ", x = " + this.corners[TOP_LEFT][X] + ", y = " + this.corners[TOP_LEFT][Y] + ", status = " + this.status + ", color = {" + this.mColor[R] + "," + this.mColor[G] + "," + this.mColor[B] + "}";
   }
 }
-/* CLASS AREA END */

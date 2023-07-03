@@ -1,9 +1,6 @@
-/* STATIC AREA START */
-//arrangement setting
 float BAR_AREA_SIZE;
 float BLOCK_AREA; // BLOCK_AREA_END - BLOCK_AREA_START
 
-// status setting
 final int TOP_AREA    = 0;
 final int BUTTOM_AREA = 1;
 final int RIGHT_AREA  = 2;
@@ -11,7 +8,6 @@ final int LEFT_AREA   = 3;
 final int[] NOMAL_COLOR = {229, 246, 251};
 final int[] FOCUS_COLOR = {180, 227, 242};
 
-// manage arrangement
 BarArea[] barAreas = new BarArea[4];
 
 void initBarArea() {
@@ -37,9 +33,6 @@ void drawBarArea() {
   }
 }
 
-/* STATIC AREA END */
-
-/* CLASS AREA START */
 public class BarArea {
   private float[][] corners = new float[4][2];
   private BarStatus status;
@@ -85,4 +78,3 @@ public class BarArea {
     return false;
   }
 }
-/* CLASS AREA END */

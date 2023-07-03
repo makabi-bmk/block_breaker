@@ -24,6 +24,7 @@ void initDango() {
 void drawDango() {
   dango.updateCorner();
   float[] dangoTopLeftCorner = dango.getTopLeftCorner();
+  
   strokeWeight(DANGO_BAR_WEIGHT);
   stroke(0 ,0, 0);
   line(dangoTopLeftCorner[X] + HAND_SIZE / 2, dangoTopLeftCorner[Y], dangoTopLeftCorner[X] + HAND_SIZE / 2, height);
@@ -34,6 +35,7 @@ void drawDango() {
   for (int i = 0; i < dango.getMochi().size(); i++) {
     Ball mochi = dango.getMochi(i);
     mochi.updateCoordinate(x, MOCHI_COORDINATE_Y[i]);
+    
     int[] mColor = mochi.getColor();
     fill(mColor[R], mColor[G], mColor[B]);
     ellipse(dangoTopLeftCorner[X] + HAND_SIZE / 2, MOCHI_COORDINATE_Y[i], MOCHI_RADIUS, MOCHI_RADIUS);
@@ -110,5 +112,4 @@ public class Dango {
          break;
     }
   }
-  
 }

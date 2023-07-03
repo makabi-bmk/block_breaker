@@ -35,7 +35,6 @@ void drawBalls() {
   for (Ball ball : balls) {
     ball.updateCoordinate();
     int[] mColor = ball.getColor();
-    //fill(0, 0, 0);
     fill(mColor[R], mColor[G], mColor[B]);
     ellipse(ball.getX(), ball.getY(), BALL_RADIUS, BALL_RADIUS);
   }
@@ -50,8 +49,6 @@ public class Ball {
   
   public Ball() {
     this.ID = getBallID();
-    //this.x = START_WIDTH / 2;
-    //this.y = 600;
     this.x = mouseX;
     this.y = mouseY;
     this.vx = random(4);
@@ -121,13 +118,6 @@ public class Ball {
     float barTop = barTopLeftCorner[Y];
     float barButtom = barButtomRightCorner[Y];
     
-    //if ((barLeft <= getLeft()) && (getRight() <= barRight)) {
-    //  if (barTop <= getButtom() && calcDistance(barTop, getButtom()) < BALL_RADIUS
-    // || getTop() <= barButtom && calcDistance(getTop(), barButtom) < BALL_RADIUS) {
-    //    return true;
-    //  }
-    //}
-    
     if (barLeft <= this.x && this.x <= barRight) {
       if (barTop <= this.y && this.y <= barButtom) {
         return true;
@@ -145,22 +135,6 @@ public class Ball {
   public void updateCoordinate(float x, float y) {
     this.x = x;
     this.y = y;
-  }
-  
-  private float getLeft() {
-    return this.x - BALL_RADIUS;
-  }
-  
-  private float getRight() {
-    return this.x + BALL_RADIUS;
-  }
-  
-  private float getTop() {
-    return this.y - BALL_RADIUS;
-  }
-  
-  private float getButtom() {
-    return this.y + BALL_RADIUS;
   }
   
   public void addScore(int statusNum) {
@@ -209,31 +183,20 @@ public class Ball {
   }
   
   public void bounce() {
-    //TODO: 跳ね返り方どうしよう
     this.vx = (random(1) > 0.5) ? this.vx : -1 * this.vx;
-    //this.vy = -1 * this.vy;
     this.vy = (random(1) > 0.9) ? this.vy : -1 * this.vy;
   }
   
   public void bounce(boolean isTop) {
-    if (isTop) {
-      //this.vx = -1 * this.vx;
-      this.vy = -1 * this.vy;
-    } else {
-      this.vx = -1 * this.vx;
-      //this.vy = -1 * this.vy;
-    }
-    
+    if (isTop) this.vy = -1 * this.vy;
+    else       this.vx = -1 * this.vx;
   }
   
   public void bounce(Bar bar) {
     BarStatus status = bar.getStatus();
-    if (status == BarStatus.Top || status == BarStatus.Buttom) {
-      //this.vx = max(bar.vx,MIN_VELOCITY);
+    if (status == BarStatus.Top || status == BarStatus.Buttom)
       this.vy = -1 * max(this.vy, MIN_VELOCITY);
-    } else if (status == BarStatus.Top || status == BarStatus.Buttom) {
-      //this.vx = -1 * max(this.vx, MIN_VELOCITY);
+    else if (status == BarStatus.Top || status == BarStatus.Buttom)
       this.vy = max(bar.vy, MIN_VELOCITY);
-    }
   }
 }
