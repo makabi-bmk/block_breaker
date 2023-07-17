@@ -10,6 +10,8 @@ final int MAX_MOCHI_NUM = 3;
 float MOCHI_RADIUS; /* BALL_RADIUS * 1.3 */
 float[] MOCHI_COORDINATE_Y = new float[MAX_MOCHI_NUM];
 
+int[] TOTAL_SCORE_THRESHOLD =  {0, 0, 0}; /* MAX_MOCHI_NUM * SCORE_THRESHOLD[i]; */
+
 final int[] DANGO_BAR_COLOR = {99, 96, 89};
 
 Dango dango = new Dango();
@@ -28,6 +30,10 @@ void initDango() {
   for (int i = 0; i < MAX_MOCHI_NUM; i++) {
     MOCHI_COORDINATE_Y[i] = mochiY;
     mochiY -= MOCHI_RADIUS;
+  }
+  
+  for (int i = 0; i < 2; i++) {
+    TOTAL_SCORE_THRESHOLD[i] = MAX_MOCHI_NUM * SCORE_THRESHOLD[i];
   }
 }
 
@@ -117,5 +123,19 @@ public class Dango {
       this.x -= DANGO_VX;
       if (this.x < 0) this.x = 0;
     }
+  }
+  
+  public int getTotalStatus() {
+    int status;
+    if (score < TOTAL_SCORE_THRESHOLD[0]) {
+      status = SCORE_BAD;
+    } else if (score < TOTAL_SCORE_THRESHOLD[1]) {
+      status = SCORE_NORMAL;
+    } else if (score < TOTAL_SCORE_THRESHOLD[2]){
+      status = SCORE_GOOD;
+    } else {
+      status = SCORE_VERYGOOD;
+    }
+    return status;
   }
 }

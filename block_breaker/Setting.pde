@@ -17,6 +17,11 @@ final int TOP_RIGHT    = 1;
 final int BUTTOM_LEFT  = 2;
 final int BUTTOM_RIGHT = 3;
 
+final int SCORE_BAD = 0;
+final int SCORE_NORMAL = 1;
+final int SCORE_GOOD = 2;
+final int SCORE_VERYGOOD = 3;
+
 final int NONE = -1;
 
 boolean FINISH_FLAG = false;

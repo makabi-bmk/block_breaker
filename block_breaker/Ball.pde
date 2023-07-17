@@ -144,10 +144,10 @@ public class Ball {
   
   private void setColor() {
     int status;
-    if      (this.score < SCORE_THRESHOLD[0]) status = STATUS_B;
-    else if (this.score < SCORE_THRESHOLD[1]) status = STATUS_N;
-    else if (this.score < SCORE_THRESHOLD[2]) status = STATUS_R;
-    else                                      status = STATUS_SR;
+    if      (this.score < SCORE_THRESHOLD[SCORE_BAD])    status = STATUS_B;
+    else if (this.score < SCORE_THRESHOLD[SCORE_NORMAL]) status = STATUS_N;
+    else if (this.score < SCORE_THRESHOLD[SCORE_GOOD])   status = STATUS_R;
+    else                                                 status = STATUS_SR;
     this.mColor[R] = BLOCK_COLORS[status][R];
     this.mColor[G] = BLOCK_COLORS[status][G];
     this.mColor[B] = BLOCK_COLORS[status][B];
@@ -158,7 +158,7 @@ public class Ball {
     if      (score < SCORE_THRESHOLD[0]) status = STATUS_B;
     else if (score < SCORE_THRESHOLD[1]) status = STATUS_N;
     else if (score < SCORE_THRESHOLD[2]) status = STATUS_R;
-    else                                      status = STATUS_SR;
+    else                                 status = STATUS_SR;
     this.mColor[R] = BLOCK_COLORS[status][R];
     this.mColor[G] = BLOCK_COLORS[status][G];
     this.mColor[B] = BLOCK_COLORS[status][B];

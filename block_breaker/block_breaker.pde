@@ -1,7 +1,9 @@
 void setup() {
+  
   surface.setSize(START_WIDTH, START_HEIGHT);
   surface.setResizable(false);
   
+  initSerial();
   initBlockCoordinate();
   initBarArea(); 
   initBar();
@@ -10,18 +12,21 @@ void setup() {
   initTime();
 }
 
+
 void draw() {
   int time = millis() / 1000;
   if (isFinish(time)) FINISH_FLAG = true;
-  background(255, 255, 255);
   
+  background(255, 255, 255);
   if (FINISH_FLAG) {
     drawFinish();
+    finishLightUp();
   } else {
+    setLastTimeForEatting(time);
     drawBlocks();
     drawBarArea();
     drawBar();
-    checkCollision();
+    checkCollision(time);
     drawBalls();
     drawDango();
     drawTime(time);
@@ -29,7 +34,7 @@ void draw() {
   }
 }
 
-void checkCollision() {
+void checkCollision(int time) {
   IntList removeBallsID = new IntList();
   for (Ball ball : balls) {
     int hitBlockID = ball.getHitBlock(blocks);
@@ -47,7 +52,8 @@ void checkCollision() {
       if (dango.addMochi(ball.getScore()) >= MAX_MOCHI_NUM) {
         player.play();
         player.rewind();
-        addScore(dango.getScore());
+        addScore(dango.getScore(), time);
+        lightUpScoreData(dango.getTotalStatus());
         dango.reset();
       }
     }
@@ -59,6 +65,7 @@ void checkCollision() {
 
 void mousePressed() {
   addBall();
+  //serial.write('d');
 }
 
 void keyPressed() {

@@ -2,7 +2,6 @@ final float BAR_SHORT_SIZE = 20;
 final int[] BAR_COLOR = {12, 49, 152};
 float BAR_LONG_SIZE;  // BAR_AREA_SIZE
 
-
 Bar bar;
 
 void initBar() {
