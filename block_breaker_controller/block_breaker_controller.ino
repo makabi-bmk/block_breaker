@@ -1,12 +1,12 @@
 #include <Wire.h>
 #include <ADXL345.h>
 #define CTR2 1 //コントローラ2に書き込む時，ここを1に
+#define THRESHOLD 0.4
 
 ADXL345 adxl;
 int x, y, z;
-int  pastx, pasty;
-int vx, vy;
-
+bool changeFlag = true;
+int loopNum = 0;
 bool buttonFlag = false;
 
 void setup() {
@@ -17,20 +17,20 @@ void setup() {
   //加速度センサ
   Serial.begin(9600);
   adxl.powerOn();
-  adxl.readXYZ(&pastx, &pasty, &z); 
 }
 
 void loop() {
   //コントローラ1
   #if !CTR2
   //加速度センサの座標を取得
-  adxl.readXYZ(&x, &y, &z); 
-  //傾きが
+  while (true) {
+  adxl.readXYZ(&x, &y, &z);
 
+  //傾きが
   vx = abs(x - pastx);
   vy = abs(y - pasty);
 
-  if(vy > vx){ //左右
+  if(abs(atan2(y, z)) > abs(atan2(x, z))){ //左右
 
     if(atan2(y, z) >0){ // 右
       if(atan2(x, z)>0){ // 上
@@ -70,13 +70,18 @@ void loop() {
     }
   }
 
-  x=pastx;
-  y=pasty;  
+  changeFlag = false;
+  }
   #endif
 
   //コントローラ2
   #if CTR2
-  adxl.readXYZ(&x, &y, &z); 
+
+  while (true) {
+  adxl.readXYZ(&x, &y, &z);
+  
+  if (abs(atan2(y, z)) < THRESHOLD) continue;
+  
   //傾きが
   if(atan2(y, z)>0){ // 右
       Serial.print(140);
@@ -96,5 +101,7 @@ void loop() {
     buttonFlag = false;
   }
   delay(1);
+
+  }
   #endif
 }

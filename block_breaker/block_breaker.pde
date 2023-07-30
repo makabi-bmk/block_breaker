@@ -22,7 +22,9 @@ void draw() {
     drawBlocks();
     drawBarArea();
     drawBar();
+    addBallFlag = false;
     checkCollision();
+    addBallFlag = true;
     drawBalls();
     drawDango();
     drawTime(time);
@@ -53,9 +55,11 @@ void checkCollision() {
       }
     }
   }
+  addBallFlag = false;
   for (int removeBallID : removeBallsID) {
     deleteBall(removeBallID);
   }
+  addBallFlag = true;
 }
 
 void mousePressed() {

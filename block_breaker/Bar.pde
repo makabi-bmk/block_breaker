@@ -1,6 +1,8 @@
 final float BAR_SHORT_SIZE = 20;
 final int[] BAR_COLOR = {12, 49, 152};
+final float BAR_VELOCITY = 5;
 float BAR_LONG_SIZE;  // BAR_AREA_SIZE
+
 
 BarStatus nowBarDirection;
 
@@ -103,9 +105,9 @@ public class Bar {
     float vx = 0;
     float vy = 0;
     if (direction == BarStatus.Top || direction == BarStatus.Buttom) {
-      vy = (direction == BarStatus.Top) ? -3 : 3; 
+      vy = (direction == BarStatus.Top) ? -BAR_VELOCITY : BAR_VELOCITY; 
     } else if (direction == BarStatus.Left || direction == BarStatus.Right) {
-      vx = (direction == BarStatus.Left) ? -3 : 3;
+      vx = (direction == BarStatus.Left) ? -BAR_VELOCITY : BAR_VELOCITY;
     }
     
     x += vx;

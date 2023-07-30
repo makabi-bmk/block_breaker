@@ -24,6 +24,7 @@ void addBall() {
 }
 
 void addBall(float x, float y) {
+  if (addBallFlag == false) return;
   if (balls.size() <= MAX_BALL_NUM) {
     balls.add(new Ball(x, y));
     addBallFlag = false;
