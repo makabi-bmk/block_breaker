@@ -197,9 +197,9 @@ public class Ball {
   
   public void bounce(Bar bar) {
     BarStatus status = bar.getStatus();
-    println(bar.vx);
-    println(bar.vy);
-    println("---------");
+    //println(bar.vx);
+    //println(bar.vy);
+    //println("---------");
     
     if (status == BarStatus.Top){
       this.vx = -1 * max(bar.vx, MIN_VELOCITY);

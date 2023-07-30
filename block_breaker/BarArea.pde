@@ -9,23 +9,33 @@ final int[] NOMAL_COLOR = {229, 246, 251};
 final int[] FOCUS_COLOR = {180, 227, 242};
 
 BarArea[] barAreas = new BarArea[4];
+BarStatus nowBarArea;
 
 void initBarArea() {
   BAR_AREA_SIZE = BLOCK_AREA_START;
   BLOCK_AREA = BLOCK_AREA_END - BLOCK_AREA_START;
+  nowBarArea = BarStatus.Top;
   barAreas[TOP_AREA]    = new BarArea(BAR_AREA_SIZE, 0, BarStatus.Top);
   barAreas[BUTTOM_AREA] = new BarArea(BAR_AREA_SIZE, BAR_AREA_SIZE + BLOCK_AREA, BarStatus.Buttom);
   barAreas[RIGHT_AREA]  = new BarArea(BAR_AREA_SIZE + BLOCK_AREA, BAR_AREA_SIZE, BarStatus.Right);
   barAreas[LEFT_AREA]   = new BarArea(0, BAR_AREA_SIZE, BarStatus.Left);
 }
 
-void drawBarArea(int area, int direction) {
+void setBarArea(int area) {
+  println("area = " + area);
+  
+  for (int i = 0; i < 4; i++) {   
+    if (barAreas[i].inRange(area)) nowBarArea = barAreas[i].getStatus();
+  }
+}
+
+void drawBarArea() {
   for (int i = 0; i < 4; i++) {
     float[] topLeftCorner = barAreas[i].getTopLeftCorner();
     float[] buttomRightCorner = barAreas[i].getButtomRightCorner();
     int[] colors;
     
-    if (barAreas[i].inRange(area)) colors = FOCUS_COLOR;
+    if (barAreas[i].getStatus() == nowBarArea) colors = FOCUS_COLOR;
     else colors = NOMAL_COLOR;
     
     fill(colors[R], colors[G], colors[B]);
@@ -33,6 +43,7 @@ void drawBarArea(int area, int direction) {
   }
 }
 
+/*
 void drawBarArea() {
   for (int i = 0; i < 4; i++) {
     float[] topLeftCorner = barAreas[i].getTopLeftCorner();
@@ -46,6 +57,7 @@ void drawBarArea() {
     rect(topLeftCorner[X], topLeftCorner[Y], buttomRightCorner[X] - topLeftCorner[X], buttomRightCorner[Y] - topLeftCorner[Y]);
   }
 }
+*/
 
 public class BarArea {
   private float[][] corners = new float[4][2];
@@ -84,7 +96,8 @@ public class BarArea {
   }
   
   public boolean inRange(int area) {
-    BarStatus areaStatus;
+    BarStatus areaStatus = BarStatus.Top;
+    
     switch(area) {
       case 1:
         areaStatus = BarStatus.Top;
@@ -100,7 +113,7 @@ public class BarArea {
         break;
     }
     
-    if (area == status) {
+    if (areaStatus == status) {
       return true;
     }
     return false;
