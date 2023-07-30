@@ -17,7 +17,8 @@ void drawTime(int m) {
 }
 
 boolean isFinish(int m) {
-  return (m >= MAX_TIME) ;
+  return false;
+  //return (m >= MAX_TIME) ;
 }
 
 void drawScore() {

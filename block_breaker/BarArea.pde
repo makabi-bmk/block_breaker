@@ -22,7 +22,7 @@ void initBarArea() {
 }
 
 void setBarArea(int area) {
-  println("area = " + area);
+  //println("area = " + area);
   
   for (int i = 0; i < 4; i++) {   
     if (barAreas[i].inRange(area)) nowBarArea = barAreas[i].getStatus();

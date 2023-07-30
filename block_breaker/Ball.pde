@@ -10,6 +10,8 @@ int[] SCORE_THRESHOLD = {0, 10, 30};
 ArrayList<Ball> balls;
 int LAST_BALL_ID = 0;
 
+boolean addBallFlag = true;
+
 void initBall() {
   BALL_DEFAULT_COLOR = BLOCK_COLORS[STATUS_N];
   balls = new ArrayList<Ball>();
@@ -24,6 +26,7 @@ void addBall() {
 void addBall(float x, float y) {
   if (balls.size() <= MAX_BALL_NUM) {
     balls.add(new Ball(x, y));
+    addBallFlag = false;
   }
 }
 
