@@ -2,6 +2,7 @@ final float BAR_SHORT_SIZE = 20;
 final int[] BAR_COLOR = {12, 49, 152};
 float BAR_LONG_SIZE;  // BAR_AREA_SIZE
 
+BarStatus nowBarDirection;
 
 Bar bar;
 
@@ -10,27 +11,44 @@ void initBar() {
   bar = new Bar();
 }
 
-//void drawBar(int area, int direction) {
-//  bar.setBarVelocity();
-  
-//  for (int i = 0; i < 4; i++) {
-//    if (barAreas[i].inRange(area)) {
-//      bar.setBarCorner(barAreas[i], mouseX, mouseY);
-//      bar.setStatus(barAreas[i].status);
+void setBar(int direction) {
+  switch(direction) {
+    case 1:
+      nowBarDirection = BarStatus.Top;
+      break;
+    case 2:
+      nowBarDirection = BarStatus.Buttom;
+      break;
+    case 3:
+      nowBarDirection = BarStatus.Left;
+      break;
+    case 4:
+      nowBarDirection = BarStatus.Right;
+      break;
+  }
+}
 
-//      float[] topLeftCorner = bar.getTopLeftCorner();
-//      float[] buttomRightCorner = bar.getButtomRightCorner();
+void drawBar() {
+  bar.setBarVelocity();
+  
+  for (int i = 0; i < 4; i++) {
+    if (barAreas[i].getStatus() == nowBarArea) {
+      bar.setBarCorner(barAreas[i], nowBarDirection);
+      bar.setStatus(barAreas[i].status);
+
+      float[] topLeftCorner = bar.getTopLeftCorner();
+      float[] buttomRightCorner = bar.getButtomRightCorner();
       
-//      fill(BAR_COLOR[R], BAR_COLOR[G], BAR_COLOR[B]);
-//      rect(topLeftCorner[X], topLeftCorner[Y], buttomRightCorner[X] - topLeftCorner[X], buttomRightCorner[Y] - topLeftCorner[Y]);
-//      bar.setVisiable(true);
-//      return;
-//    }
-//  }
-//  bar.setVisiable(false);
-  
-//}
+      fill(BAR_COLOR[R], BAR_COLOR[G], BAR_COLOR[B]);
+      rect(topLeftCorner[X], topLeftCorner[Y], buttomRightCorner[X] - topLeftCorner[X], buttomRightCorner[Y] - topLeftCorner[Y]);
+      bar.setVisiable(true);
+      return;
+    }
+  }
+  bar.setVisiable(false); 
+}
 
+/*
 void drawBar() {
   bar.setBarVelocity(mouseX, mouseY);
   
@@ -50,17 +68,66 @@ void drawBar() {
   }
   bar.setVisiable(false);
 }
+*/
 
 public class Bar {
   private float[][] corners = new float[4][2];
   private boolean visiable;
+  
+  private float currentX, currentY;
+  
   private float pastX, pastY;
   private float vx, vy;
   private BarStatus status;
   
   public Bar() {
+    this.currentX = 0;
+    this.currentY = 0;
     this.pastX = mouseX;
     this.pastY = mouseY;
+  }
+  
+  public void setBarCorner(BarArea barArea, BarStatus direction) {
+    this.visiable = false;
+    
+    float[] barButtomRightCorner = barArea.getButtomRightCorner();
+    
+    float vx = 0;
+    float vy = 0;
+    if (direction == BarStatus.Top || direction == BarStatus.Buttom) {
+      vy = (direction == BarStatus.Top) ? -3 : 3; 
+    } else if (direction == BarStatus.Left || direction == BarStatus.Right) {
+      vx = (direction == BarStatus.Left) ? -3 : 3;
+    }
+    
+    currentX += vx;
+    currentY += vy;
+    if (currentX < BLOCK_AREA_START) currentX = BLOCK_AREA_START;
+    if (currentX > BLOCK_AREA_END)   currentX = BLOCK_AREA_END;
+    if (currentY < BLOCK_AREA_START) currentY = BLOCK_AREA_START;
+    if (currentY > BLOCK_AREA_END)   currentY = BLOCK_AREA_END;
+    
+    if (barArea.status == BarStatus.Top || barArea.status == BarStatus.Buttom) {
+      this.corners[TOP_LEFT][X]     = this.corners[BUTTOM_LEFT][X]  = currentX - BAR_LONG_SIZE;
+      this.corners[TOP_RIGHT][X]    = this.corners[BUTTOM_RIGHT][X] = currentX + BAR_LONG_SIZE;
+      if (barArea.status == BarStatus.Top) {
+        this.corners[TOP_LEFT][Y]     = this.corners[TOP_RIGHT][Y]    = 0;
+        this.corners[BUTTOM_RIGHT][Y] = this.corners[BUTTOM_LEFT][Y]  = BAR_SHORT_SIZE;
+      } else {
+        this.corners[TOP_LEFT][Y]     = this.corners[TOP_RIGHT][Y]    = barButtomRightCorner[Y] - BAR_SHORT_SIZE;
+        this.corners[BUTTOM_RIGHT][Y] = this.corners[BUTTOM_LEFT][Y]  = barButtomRightCorner[Y];
+      }
+    } else {
+      this.corners[TOP_LEFT][Y]     = this.corners[TOP_RIGHT][Y]    = currentY - BAR_LONG_SIZE;
+      this.corners[BUTTOM_LEFT][Y]  = this.corners[BUTTOM_RIGHT][Y] = currentY + BAR_LONG_SIZE;
+      if (barArea.status == BarStatus.Left) {
+        this.corners[TOP_LEFT][X]     = this.corners[BUTTOM_LEFT][X]  = 0;
+        this.corners[BUTTOM_RIGHT][X] = this.corners[BUTTOM_LEFT][X]  = BAR_SHORT_SIZE;
+      } else {
+        this.corners[TOP_LEFT][X]     = this.corners[BUTTOM_LEFT][X]  = barButtomRightCorner[X] - BAR_SHORT_SIZE;
+        this.corners[BUTTOM_RIGHT][X] = this.corners[BUTTOM_LEFT][X]  = barButtomRightCorner[X];
+      }
+    }
   }
   
   public void setBarCorner(BarArea barArea, float x, float y) {

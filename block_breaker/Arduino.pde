@@ -25,8 +25,8 @@ void serialEvent(Serial serialData) {
   
   switch(command / 100) {
    case 0:
-   
      setBarArea(command / 10);
+     setBar(command % 10);
      break;
     
    case 1:
