@@ -19,6 +19,20 @@ void initBarArea() {
   barAreas[LEFT_AREA]   = new BarArea(0, BAR_AREA_SIZE, BarStatus.Left);
 }
 
+void drawBarArea(int area, int direction) {
+  for (int i = 0; i < 4; i++) {
+    float[] topLeftCorner = barAreas[i].getTopLeftCorner();
+    float[] buttomRightCorner = barAreas[i].getButtomRightCorner();
+    int[] colors;
+    
+    if (barAreas[i].inRange(area)) colors = FOCUS_COLOR;
+    else colors = NOMAL_COLOR;
+    
+    fill(colors[R], colors[G], colors[B]);
+    rect(topLeftCorner[X], topLeftCorner[Y], buttomRightCorner[X] - topLeftCorner[X], buttomRightCorner[Y] - topLeftCorner[Y]);
+  }
+}
+
 void drawBarArea() {
   for (int i = 0; i < 4; i++) {
     float[] topLeftCorner = barAreas[i].getTopLeftCorner();
@@ -69,12 +83,40 @@ public class BarArea {
     return corners[TOP_LEFT][X] + ", " + corners[TOP_LEFT][Y] + ", " + corners[TOP_RIGHT][X] + ", " + corners[TOP_RIGHT][Y] + ", " + corners[BUTTOM_LEFT][X] + ", " + corners[BUTTOM_LEFT][Y] + ", " + corners[BUTTOM_RIGHT][X] + ", " + corners[BUTTOM_RIGHT][Y]; 
   }
   
+  public boolean inRange(int area) {
+    BarStatus areaStatus;
+    switch(area) {
+      case 1:
+        areaStatus = BarStatus.Top;
+        break;
+      case 2:
+        areaStatus = BarStatus.Buttom;
+        break;
+      case 3:
+        areaStatus = BarStatus.Left;
+        break;
+      case 4:
+        areaStatus = BarStatus.Right;
+        break;
+    }
+    
+    if (area == status) {
+      return true;
+    }
+    return false;
+  }
+  
   public boolean inRange(int x, int y) {
     if (corners[TOP_LEFT][X] < x && x < corners[TOP_RIGHT][X]){
       if (corners[TOP_LEFT][Y] < y && y < corners[BUTTOM_LEFT][Y]) {
         return true;
       }
     }
+    return false;
+  }
+  
+  public boolean inRange(BarStatus status) {
+    if (this.status == status) return true;
     return false;
   }
 }

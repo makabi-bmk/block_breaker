@@ -8,6 +8,7 @@ void setup() {
   initBall();
   initDango();
   initTime();
+  initSerial();
 }
 
 void draw() {

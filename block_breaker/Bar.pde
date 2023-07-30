@@ -10,6 +10,27 @@ void initBar() {
   bar = new Bar();
 }
 
+//void drawBar(int area, int direction) {
+//  bar.setBarVelocity();
+  
+//  for (int i = 0; i < 4; i++) {
+//    if (barAreas[i].inRange(area)) {
+//      bar.setBarCorner(barAreas[i], mouseX, mouseY);
+//      bar.setStatus(barAreas[i].status);
+
+//      float[] topLeftCorner = bar.getTopLeftCorner();
+//      float[] buttomRightCorner = bar.getButtomRightCorner();
+      
+//      fill(BAR_COLOR[R], BAR_COLOR[G], BAR_COLOR[B]);
+//      rect(topLeftCorner[X], topLeftCorner[Y], buttomRightCorner[X] - topLeftCorner[X], buttomRightCorner[Y] - topLeftCorner[Y]);
+//      bar.setVisiable(true);
+//      return;
+//    }
+//  }
+//  bar.setVisiable(false);
+  
+//}
+
 void drawBar() {
   bar.setBarVelocity(mouseX, mouseY);
   
@@ -79,6 +100,11 @@ public class Bar {
       this.vy = x - this.pastY;
       this.pastX = x;
       this.pastY = y;
+  }
+  
+  public void setBarVelocity() {
+    this.vx = 1;
+    this.vy = 1;
   }
   
   public void setStatus(BarStatus status) {
