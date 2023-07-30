@@ -30,6 +30,9 @@ void serialEvent(Serial serialData) {
      break;
     
    case 1:
+     boolean direction = (command / 10 == 13) ? true : false;
+     //println(direction);
+     dango.move(direction);
      break;
    
    case 2:
