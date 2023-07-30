@@ -58,6 +58,17 @@ public class Ball {
     this.mColor[B] = BALL_DEFAULT_COLOR[B];
   }
   
+  public Ball(float x, float y) {
+    this.ID = getBallID();
+    this.x = x;
+    this.y = y;
+    this.vx = random(4);
+    this.vy = -5;
+    this.mColor[R] = BALL_DEFAULT_COLOR[R];
+    this.mColor[G] = BALL_DEFAULT_COLOR[G];
+    this.mColor[B] = BALL_DEFAULT_COLOR[B];
+  }
+  
   public Ball(int score) {
     setColor(score);
   }

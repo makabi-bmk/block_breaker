@@ -74,17 +74,25 @@ public class Bar {
   private float[][] corners = new float[4][2];
   private boolean visiable;
   
-  private float currentX, currentY;
+  private float x, y;
   
   private float pastX, pastY;
   private float vx, vy;
   private BarStatus status;
   
   public Bar() {
-    this.currentX = 0;
-    this.currentY = 0;
+    this.x = 0;
+    this.y = 0;
     this.pastX = mouseX;
     this.pastY = mouseY;
+  }
+  
+  public float getX() {
+    return this.x;
+  }
+  
+  public float getY() {
+    return this.y;
   }
   
   public void setBarCorner(BarArea barArea, BarStatus direction) {
@@ -100,16 +108,16 @@ public class Bar {
       vx = (direction == BarStatus.Left) ? -3 : 3;
     }
     
-    currentX += vx;
-    currentY += vy;
-    if (currentX < BLOCK_AREA_START) currentX = BLOCK_AREA_START;
-    if (currentX > BLOCK_AREA_END)   currentX = BLOCK_AREA_END;
-    if (currentY < BLOCK_AREA_START) currentY = BLOCK_AREA_START;
-    if (currentY > BLOCK_AREA_END)   currentY = BLOCK_AREA_END;
+    x += vx;
+    y += vy;
+    if (x < BLOCK_AREA_START) x = BLOCK_AREA_START;
+    if (x > BLOCK_AREA_END)   x = BLOCK_AREA_END;
+    if (y < BLOCK_AREA_START) y = BLOCK_AREA_START;
+    if (y > BLOCK_AREA_END)   y = BLOCK_AREA_END;
     
     if (barArea.status == BarStatus.Top || barArea.status == BarStatus.Buttom) {
-      this.corners[TOP_LEFT][X]     = this.corners[BUTTOM_LEFT][X]  = currentX - BAR_LONG_SIZE;
-      this.corners[TOP_RIGHT][X]    = this.corners[BUTTOM_RIGHT][X] = currentX + BAR_LONG_SIZE;
+      this.corners[TOP_LEFT][X]     = this.corners[BUTTOM_LEFT][X]  = x - BAR_LONG_SIZE;
+      this.corners[TOP_RIGHT][X]    = this.corners[BUTTOM_RIGHT][X] = x + BAR_LONG_SIZE;
       if (barArea.status == BarStatus.Top) {
         this.corners[TOP_LEFT][Y]     = this.corners[TOP_RIGHT][Y]    = 0;
         this.corners[BUTTOM_RIGHT][Y] = this.corners[BUTTOM_LEFT][Y]  = BAR_SHORT_SIZE;
@@ -118,8 +126,8 @@ public class Bar {
         this.corners[BUTTOM_RIGHT][Y] = this.corners[BUTTOM_LEFT][Y]  = barButtomRightCorner[Y];
       }
     } else {
-      this.corners[TOP_LEFT][Y]     = this.corners[TOP_RIGHT][Y]    = currentY - BAR_LONG_SIZE;
-      this.corners[BUTTOM_LEFT][Y]  = this.corners[BUTTOM_RIGHT][Y] = currentY + BAR_LONG_SIZE;
+      this.corners[TOP_LEFT][Y]     = this.corners[TOP_RIGHT][Y]    = y - BAR_LONG_SIZE;
+      this.corners[BUTTOM_LEFT][Y]  = this.corners[BUTTOM_RIGHT][Y] = y + BAR_LONG_SIZE;
       if (barArea.status == BarStatus.Left) {
         this.corners[TOP_LEFT][X]     = this.corners[BUTTOM_LEFT][X]  = 0;
         this.corners[BUTTOM_RIGHT][X] = this.corners[BUTTOM_LEFT][X]  = BAR_SHORT_SIZE;

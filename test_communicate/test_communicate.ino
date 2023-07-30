@@ -6,6 +6,10 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
+  Serial.print(200);
+  Serial.print('s');
+  delay(700);
+  
   /*
   Serial.print(11);
   Serial.print('s');
@@ -63,6 +67,7 @@ void loop() {
   delay(700);
   */
 
+  /*
   for (int i = 0; i < 10; i++) {
     Serial.print(130);
     Serial.print('s');
@@ -73,4 +78,5 @@ void loop() {
     Serial.print('s');
   }
   delay(700);
+  */
 }

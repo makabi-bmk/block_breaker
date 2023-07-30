@@ -23,6 +23,7 @@ void serialEvent(Serial serialData) {
     return;
   }
   
+  println(command / 100);
   switch(command / 100) {
    case 0:
      setBarArea(command / 10);
@@ -31,11 +32,11 @@ void serialEvent(Serial serialData) {
     
    case 1:
      boolean direction = (command / 10 == 13) ? true : false;
-     //println(direction);
      dango.move(direction);
      break;
    
    case 2:
+     addBall();
      break;
  }
  command = 0;
