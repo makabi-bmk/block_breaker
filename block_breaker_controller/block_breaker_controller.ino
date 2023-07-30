@@ -1,6 +1,6 @@
 #include <Wire.h>
 #include <ADXL345.h>
-#define CTR2 1 //コントローラ2に書き込む時，ここを1に
+#define CTR2 0 //コントローラ2に書き込む時，ここを1に
 #define THRESHOLD 0.4
 
 ADXL345 adxl;
@@ -27,31 +27,29 @@ void loop() {
   adxl.readXYZ(&x, &y, &z);
 
   //傾きが
-  vx = abs(x - pastx);
-  vy = abs(y - pasty);
 
   if(abs(atan2(y, z)) > abs(atan2(x, z))){ //左右
 
     if(atan2(y, z) >0){ // 右
-      if(atan2(x, z)>0){ // 上
+      if(atan2(x, z)<0){ // 上
         Serial.print(41);
         Serial.print('s');//パーサ
-      }else if(atan2(x, z)<=0){ // 下
+      }else{ // 下
         Serial.print(42);
         Serial.print('s');
       }
     }
     else { // 左
-      if(atan2(x, z)>0){ // 上
+      if(atan2(x, z)<0){ // 上
         Serial.print(31);
         Serial.print('s');
-      }else if(atan2(x, z)<=0){ // 下
+      }else{ // 下
         Serial.print(32);
         Serial.print('s');
       }
     }
   }else{
-    if(atan2(x, z) >0){ // 上
+    if(atan2(x, z) < 0){ // 上
       if(atan2(y, z)>0){ // 右
         Serial.print(14);
         Serial.print('s');//パーサ

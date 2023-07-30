@@ -13,12 +13,12 @@ void initTime() {
 void drawTime(int m) {
   textSize(TIMER_TEXT_SIZE);
   fill(0, 0, 0);
-  text("time  :" + m, TEXT_COORDINATE, TEXT_COORDINATE_Y);
+  text("time  :" + (MAX_TIME - m), TEXT_COORDINATE, TEXT_COORDINATE_Y);
 }
 
 boolean isFinish(int m) {
-  return false;
-  //return (m >= MAX_TIME) ;
+  //return false;
+  return (m >= MAX_TIME) ;
 }
 
 void drawScore() {

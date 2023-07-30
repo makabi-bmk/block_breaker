@@ -42,12 +42,14 @@ int getBallID() {
 }
 
 void drawBalls() {
+  addBallFlag = false;
   for (Ball ball : balls) {
     ball.updateCoordinate();
     int[] mColor = ball.getColor();
     fill(mColor[R], mColor[G], mColor[B]);
     ellipse(ball.getX(), ball.getY(), BALL_RADIUS, BALL_RADIUS);
   }
+  addBallFlag = true;
 }
 
 public class Ball {

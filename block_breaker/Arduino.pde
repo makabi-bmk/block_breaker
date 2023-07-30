@@ -4,7 +4,7 @@ final int CATEGORY_HUNGER = 128;
 final int CATEGORY_SCORE  = 0;
 final int CATEGORY_FINISH = 255;
 
-final int CONNECT_ARDUINO_NUM = 1;
+final int CONNECT_ARDUINO_NUM = 2;
 
 Serial[] serial = new Serial[CONNECT_ARDUINO_NUM];
 int command = 0;
