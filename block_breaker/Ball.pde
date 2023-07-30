@@ -21,6 +21,12 @@ void addBall() {
   }
 }
 
+void addBall(float x, float y) {
+  if (balls.size() <= MAX_BALL_NUM) {
+    balls.add(new Ball(x, y));
+  }
+}
+
 void deleteBall(int ballID) {
   for (int i = 0; i < balls.size(); i++) {
     if (balls.get(i).getID() == ballID) balls.remove(i);

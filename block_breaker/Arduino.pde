@@ -36,7 +36,7 @@ void serialEvent(Serial serialData) {
      break;
    
    case 2:
-     addBall();
+     addBall(bar.getX(), bar.getY());
      break;
  }
  command = 0;
